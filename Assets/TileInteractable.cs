@@ -274,7 +274,7 @@ public class TileInteractable : MonoBehaviour
         UpdateSeedCountUI();
     }
 
-    void UpdateSeedCountUI()
+    public void UpdateSeedCountUI()
     {
         // Update both the first and second tomato seed count text
         if (tomatoSeedCountText != null)
