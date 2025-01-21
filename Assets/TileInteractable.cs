@@ -15,8 +15,6 @@ public class TileInteractable : MonoBehaviour
     public Button closeUIButton;
     public TMP_Text tomatoSeedCountText;    // UI Text for tomato seed count
     public TMP_Text carrotSeedCountText;    // UI Text for carrot seed count
-    public TMP_Text tomatoFullyGrownCountText;    // UI Text for tomato fully grown count
-    public TMP_Text carrotFullyGrownCountText;    // UI Text for carrot fully grown count
 
     // Inventory UI
     public GameObject inventoryPanel;       // Inventory panel UI
@@ -287,25 +285,16 @@ public class TileInteractable : MonoBehaviour
             carrotSeedCountText.text = "Carrot Seeds: " + carrotSeedCount;
         }
 
-        if (tomatoFullyGrownCountText != null)
-        {
-            tomatoFullyGrownCountText.text = "Fully Grown Tomatoes: " + tomatoFullyGrownCount;
-        }
-
-        if (carrotFullyGrownCountText != null)
-        {
-            carrotFullyGrownCountText.text = "Fully Grown Carrots: " + carrotFullyGrownCount;
-        }
 
         // Update inventory UI with counts
         if (inventoryTomatoCount != null)
         {
-            inventoryTomatoCount.text = "Tomato Seeds: " + tomatoSeedCount;
+            inventoryTomatoCount.text = $"Tomato Seeds: {tomatoSeedCount}\nFully Grown: {tomatoFullyGrownCount}";
         }
 
         if (inventoryCarrotCount != null)
         {
-            inventoryCarrotCount.text = "Carrot Seeds: " + carrotSeedCount;
+            inventoryCarrotCount.text = $"Carrot Seeds: {carrotSeedCount}\nFully Grown: {carrotFullyGrownCount}";
         }
     }
 
