@@ -32,11 +32,13 @@ public class HungerSystem : MonoBehaviour
         }
 
         // update slider UI
-        _slider.value = _hunger / _maxHunger;
+        _slider.value = (float)_hunger / _maxHunger;
+
+        Debug.Log($"_hunger: {_hunger}, value: {_slider.value}");
     }
 
     // Plus Hunger value
-    void PlusHunger(int hunger)
+    public void PlusHunger(int hunger)
     {
         if (hunger <= 0)
         {
@@ -48,7 +50,7 @@ public class HungerSystem : MonoBehaviour
     }
 
     // Minus Hunger value
-    void MinusHunger(int hunger)
+    public void MinusHunger(int hunger)
     {
         if (hunger <= 0)
         {
