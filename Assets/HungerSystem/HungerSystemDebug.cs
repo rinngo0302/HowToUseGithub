@@ -20,6 +20,6 @@ public class HungerSystemDebug : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }
