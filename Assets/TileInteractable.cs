@@ -10,22 +10,69 @@ public class TileInteractable : MonoBehaviour
 
     // UI References
     public GameObject seedSelectionUI;
-    public Button tomatoSeedButton;
-    public Button carrotSeedButton;
+    public Button blueberrySeedButton; 
+    public Button lemonSeedButton;
+    public Button appleSeedButton;
+    public Button bananaSeedButton;
+    public Button grapeSeedButton;
+    public Button durianSeedButton;
+    public Button orangeSeedButton;
+    public Button kiwiSeedButton;
+    public Button starfruitSeedButton;
+    public Button pearSeedButton;
+    public Button goldSeedButton;
     public Button closeUIButton;
-    public TMP_Text tomatoSeedCountText;    // UI Text for tomato seed count
-    public TMP_Text carrotSeedCountText;    // UI Text for carrot seed count
+
+    public TMP_Text blueberrySeedCountText; 
+    public TMP_Text lemonSeedCountText;
+    public TMP_Text appleSeedCountText;
+    public TMP_Text bananaSeedCountText;
+    public TMP_Text grapeSeedCountText;
+    public TMP_Text durianSeedCountText;
+    public TMP_Text orangeSeedCountText;
+    public TMP_Text kiwiSeedCountText;
+    public TMP_Text starfruitSeedCountText;
+    public TMP_Text pearSeedCountText;
+    public TMP_Text goldSeedCountText;
 
     // Inventory UI
     public GameObject inventoryPanel;       // Inventory panel UI
-    public TMP_Text inventoryTomatoCount;   // UI Text for tomato seeds in inventory
-    public TMP_Text inventoryCarrotCount;   // UI Text for carrot seeds in inventory
+    public TMP_Text inventoryBlueberryCount; 
+    public TMP_Text inventoryLemonCount;
+    public TMP_Text inventoryAppleCount;
+    public TMP_Text inventoryBananaCount;
+    public TMP_Text inventoryGrapeCount;
+    public TMP_Text inventoryDurianCount;
+    public TMP_Text inventoryOrangeCount;
+    public TMP_Text inventoryKiwiCount;
+    public TMP_Text inventoryStarfruitCount;
+    public TMP_Text inventoryPearCount;
+    public TMP_Text inventoryGoldCount;
 
     // Inventory
-    public int tomatoSeedCount = 5;     // Initial tomato seed count
-    public int carrotSeedCount = 5;     // Initial carrot seed count
-    public int tomatoFullyGrownCount = 0;     // Fully grown tomato count
-    public int carrotFullyGrownCount = 0;     // Fully grown carrot count
+    public int blueberrySeedCount = 0; 
+    public int lemonSeedCount = 0;
+    public int appleSeedCount = 0;
+    public int bananaSeedCount = 0;
+    public int grapeSeedCount = 0;
+    public int durianSeedCount = 0;
+    public int orangeSeedCount = 0;
+    public int kiwiSeedCount = 0;
+    public int starfruitSeedCount = 0;
+    public int pearSeedCount = 0;
+    public int goldSeedCount = 0;
+
+    public int blueberryFullyGrownCount = 0; 
+    public int lemonFullyGrownCount = 0;
+    public int appleFullyGrownCount = 0;
+    public int bananaFullyGrownCount = 0;
+    public int grapeFullyGrownCount = 0;
+    public int durianFullyGrownCount = 0;
+    public int orangeFullyGrownCount = 0;
+    public int kiwiFullyGrownCount = 0;
+    public int starfruitFullyGrownCount = 0;
+    public int pearFullyGrownCount = 0;
+    public int goldFullyGrownCount = 0;
 
     // Seed selection logic
     private string selectedSeed = "";
@@ -38,8 +85,17 @@ public class TileInteractable : MonoBehaviour
     [Header("Plant Growth Settings")]
     public GameObject seedStage;      // The seed stage model
     public GameObject saplingStage;   // The sapling stage model
-    public GameObject tomatoFullStage;   // Tomato full-grown model
-    public GameObject carrotFullStage;   // Carrot full-grown model
+    public GameObject blueberryFullStage; 
+    public GameObject lemonFullStage;
+    public GameObject appleFullStage;
+    public GameObject bananaFullStage;
+    public GameObject grapeFullStage;
+    public GameObject durianFullStage;
+    public GameObject orangeFullStage;
+    public GameObject kiwiFullStage;
+    public GameObject starfruitFullStage;
+    public GameObject pearFullStage;
+    public GameObject goldFullStage;
 
     private GameObject currentFullStage;  // Holds the current full-grown model for the selected seed
 
@@ -51,8 +107,17 @@ public class TileInteractable : MonoBehaviour
 
     // Define growth durations for different seeds
     [Header("Seed Growth Durations")]
-    public float tomatoGrowthDuration = 10f; // Duration for tomato growth
-    public float carrotGrowthDuration = 15f; // Duration for carrot growth
+    public float blueberryGrowthDuration = 5f;  
+    public float lemonGrowthDuration = 10f;
+    public float appleGrowthDuration = 12f;
+    public float bananaGrowthDuration = 14f;
+    public float grapeGrowthDuration = 16f;
+    public float durianGrowthDuration = 18f;
+    public float orangeGrowthDuration = 20f;
+    public float kiwiGrowthDuration = 22f;
+    public float starfruitGrowthDuration = 24f;
+    public float pearGrowthDuration = 26f;
+    public float goldGrowthDuration = 30f;
 
     private float growthDuration;  // This will be set based on the selected seed
 
@@ -69,15 +134,33 @@ public class TileInteractable : MonoBehaviour
         inventoryPanel.SetActive(false);
 
         // Add button listeners
-        tomatoSeedButton.onClick.AddListener(() => SelectSeed("Tomato"));
-        carrotSeedButton.onClick.AddListener(() => SelectSeed("Carrot"));
+        blueberrySeedButton.onClick.AddListener(() => SelectSeed("Blueberry")); 
+        lemonSeedButton.onClick.AddListener(() => SelectSeed("Lemon"));
+        appleSeedButton.onClick.AddListener(() => SelectSeed("Apple"));
+        bananaSeedButton.onClick.AddListener(() => SelectSeed("Banana"));
+        grapeSeedButton.onClick.AddListener(() => SelectSeed("Grape"));
+        durianSeedButton.onClick.AddListener(() => SelectSeed("Durian"));
+        orangeSeedButton.onClick.AddListener(() => SelectSeed("Orange"));
+        kiwiSeedButton.onClick.AddListener(() => SelectSeed("Kiwi"));
+        starfruitSeedButton.onClick.AddListener(() => SelectSeed("Starfruit"));
+        pearSeedButton.onClick.AddListener(() => SelectSeed("Pear"));
+        goldSeedButton.onClick.AddListener(() => SelectSeed("Gold"));
         closeUIButton.onClick.AddListener(CloseSeedSelection);
 
         // Ensure all models are inactive at the start, except the seed model
         if (seedStage != null) seedStage.SetActive(false);
         if (saplingStage != null) saplingStage.SetActive(false);
-        if (tomatoFullStage != null) tomatoFullStage.SetActive(false);
-        if (carrotFullStage != null) carrotFullStage.SetActive(false);
+        if (blueberryFullStage != null) blueberryFullStage.SetActive(false); 
+        if (lemonFullStage != null) lemonFullStage.SetActive(false);
+        if (appleFullStage != null) appleFullStage.SetActive(false);
+        if (bananaFullStage != null) bananaFullStage.SetActive(false);
+        if (grapeFullStage != null) grapeFullStage.SetActive(false);
+        if (durianFullStage != null) durianFullStage.SetActive(false);
+        if (orangeFullStage != null) orangeFullStage.SetActive(false);
+        if (kiwiFullStage != null) kiwiFullStage.SetActive(false);
+        if (starfruitFullStage != null) starfruitFullStage.SetActive(false);
+        if (pearFullStage != null) pearFullStage.SetActive(false);
+        if (goldFullStage != null) goldFullStage.SetActive(false);
 
         // Update UI seed counts
         UpdateSeedCountUI();
@@ -154,30 +237,120 @@ public class TileInteractable : MonoBehaviour
             Cursor.visible = true;
 
             // Disable buttons if out of seeds
-            tomatoSeedButton.interactable = tomatoSeedCount > 0;
-            carrotSeedButton.interactable = carrotSeedCount > 0;
+            blueberrySeedButton.interactable = blueberrySeedCount > 0; 
+            lemonSeedButton.interactable = lemonSeedCount > 0;
+            appleSeedButton.interactable = appleSeedCount > 0;
+            bananaSeedButton.interactable = bananaSeedCount > 0;
+            grapeSeedButton.interactable = grapeSeedCount > 0;
+            durianSeedButton.interactable = durianSeedCount > 0;
+            orangeSeedButton.interactable = orangeSeedCount > 0;
+            kiwiSeedButton.interactable = kiwiSeedCount > 0;
+            starfruitSeedButton.interactable = starfruitSeedCount > 0;
+            pearSeedButton.interactable = pearSeedCount > 0;
+            goldSeedButton.interactable = goldSeedCount > 0;
         }
     }
 
     void SelectSeed(string seed)
     {
-        if (seed == "Tomato" && tomatoSeedCount > 0)
+        if (seed == "Blueberry" && blueberrySeedCount > 0) 
         {
             selectedSeed = seed;
-            growthDuration = tomatoGrowthDuration;
-            currentFullStage = tomatoFullStage;
+            growthDuration = blueberryGrowthDuration; 
+            currentFullStage = blueberryFullStage; 
 
             // Reduce seed count
-            tomatoSeedCount--;
+            blueberrySeedCount--; 
         }
-        else if (seed == "Carrot" && carrotSeedCount > 0)
+        else if (seed == "Lemon" && lemonSeedCount > 0)
         {
             selectedSeed = seed;
-            growthDuration = carrotGrowthDuration;
-            currentFullStage = carrotFullStage;
+            growthDuration = lemonGrowthDuration;
+            currentFullStage = lemonFullStage;
 
             // Reduce seed count
-            carrotSeedCount--;
+            lemonSeedCount--;
+        }
+        else if (seed == "Apple" && appleSeedCount > 0)
+        {
+            selectedSeed = seed;
+            growthDuration = appleGrowthDuration;
+            currentFullStage = appleFullStage;
+
+            // Reduce seed count
+            appleSeedCount--;
+        }
+        else if (seed == "Banana" && bananaSeedCount > 0)
+        {
+            selectedSeed = seed;
+            growthDuration = bananaGrowthDuration;
+            currentFullStage = bananaFullStage;
+
+            // Reduce seed count
+            bananaSeedCount--;
+        }
+        else if (seed == "Grape" && grapeSeedCount > 0)
+        {
+            selectedSeed = seed;
+            growthDuration = grapeGrowthDuration;
+            currentFullStage = grapeFullStage;
+
+            // Reduce seed count
+            grapeSeedCount--;
+        }
+        else if (seed == "Durian" && durianSeedCount > 0)
+        {
+            selectedSeed = seed;
+            growthDuration = durianGrowthDuration;
+            currentFullStage = durianFullStage;
+
+            // Reduce seed count
+            durianSeedCount--;
+        }
+        else if (seed == "Orange" && orangeSeedCount > 0)
+        {
+            selectedSeed = seed;
+            growthDuration = orangeGrowthDuration;
+            currentFullStage = orangeFullStage;
+
+            // Reduce seed count
+            orangeSeedCount--;
+        }
+        else if (seed == "Kiwi" && kiwiSeedCount > 0)
+        {
+            selectedSeed = seed;
+            growthDuration = kiwiGrowthDuration;
+            currentFullStage = kiwiFullStage;
+
+            // Reduce seed count
+            kiwiSeedCount--;
+        }
+        else if (seed == "Starfruit" && starfruitSeedCount > 0)
+        {
+            selectedSeed = seed;
+            growthDuration = starfruitGrowthDuration;
+            currentFullStage = starfruitFullStage;
+
+            // Reduce seed count
+            starfruitSeedCount--;
+        }
+        else if (seed == "Pear" && pearSeedCount > 0)
+        {
+            selectedSeed = seed;
+            growthDuration = pearGrowthDuration;
+            currentFullStage = pearFullStage;
+
+            // Reduce seed count
+            pearSeedCount--;
+        }
+        else if (seed == "Gold" && goldSeedCount > 0)
+        {
+            selectedSeed = seed;
+            growthDuration = goldGrowthDuration;
+            currentFullStage = goldFullStage;
+
+            // Reduce seed count
+            goldSeedCount--;
         }
 
         PlantSeed();
@@ -247,13 +420,49 @@ public class TileInteractable : MonoBehaviour
         Debug.Log("Harvested " + selectedSeed + "!");
 
         // Increment the fully grown count for the respective seed type
-        if (selectedSeed == "Tomato")
+        if (selectedSeed == "Blueberry") 
         {
-            tomatoFullyGrownCount++;
+            blueberryFullyGrownCount++; 
         }
-        else if (selectedSeed == "Carrot")
+        else if (selectedSeed == "Lemon")
         {
-            carrotFullyGrownCount++;
+            lemonFullyGrownCount++;
+        }
+        else if (selectedSeed == "Apple")
+        {
+            appleFullyGrownCount++;
+        }
+        else if (selectedSeed == "Banana")
+        {
+            bananaFullyGrownCount++;
+        }
+        else if (selectedSeed == "Grape")
+        {
+            grapeFullyGrownCount++;
+        }
+        else if (selectedSeed == "Durian")
+        {
+            durianFullyGrownCount++;
+        }
+        else if (selectedSeed == "Orange")
+        {
+            orangeFullyGrownCount++;
+        }
+        else if (selectedSeed == "Kiwi")
+        {
+            kiwiFullyGrownCount++;
+        }
+        else if (selectedSeed == "Starfruit")
+        {
+            starfruitFullyGrownCount++;
+        }
+        else if (selectedSeed == "Pear")
+        {
+            pearFullyGrownCount++;
+        }
+        else if (selectedSeed == "Gold")
+        {
+            goldFullyGrownCount++;
         }
 
         // Reset plant state
@@ -274,27 +483,119 @@ public class TileInteractable : MonoBehaviour
 
     public void UpdateSeedCountUI()
     {
-        // Update both the first and second tomato seed count text
-        if (tomatoSeedCountText != null)
+        // Update seed counts for all fruit types
+
+        if (blueberrySeedCountText != null) 
         {
-            tomatoSeedCountText.text = "Tomato Seeds: " + tomatoSeedCount;
+            blueberrySeedCountText.text = "Blueberry Seeds: " + blueberrySeedCount; 
         }
 
-        if (carrotSeedCountText != null)
+        if (lemonSeedCountText != null)
         {
-            carrotSeedCountText.text = "Carrot Seeds: " + carrotSeedCount;
+            lemonSeedCountText.text = "Lemon Seeds: " + lemonSeedCount;
+        }
+
+        if (appleSeedCountText != null)
+        {
+            appleSeedCountText.text = "Apple Seeds: " + appleSeedCount;
+        }
+
+        if (bananaSeedCountText != null)
+        {
+            bananaSeedCountText.text = "Banana Seeds: " + bananaSeedCount;
+        }
+
+        if (grapeSeedCountText != null)
+        {
+            grapeSeedCountText.text = "Grape Seeds: " + grapeSeedCount;
+        }
+
+        if (durianSeedCountText != null)
+        {
+            durianSeedCountText.text = "Durian Seeds: " + durianSeedCount;
+        }
+
+        if (orangeSeedCountText != null)
+        {
+            orangeSeedCountText.text = "Orange Seeds: " + orangeSeedCount;
+        }
+
+        if (kiwiSeedCountText != null)
+        {
+            kiwiSeedCountText.text = "Kiwi Seeds: " + kiwiSeedCount;
+        }
+
+        if (starfruitSeedCountText != null)
+        {
+            starfruitSeedCountText.text = "Starfruit Seeds: " + starfruitSeedCount;
+        }
+
+        if (pearSeedCountText != null)
+        {
+            pearSeedCountText.text = "Pear Seeds: " + pearSeedCount;
+        }
+
+        if (goldSeedCountText != null)
+        {
+            goldSeedCountText.text = "Gold Seeds: " + goldSeedCount;
         }
 
 
-        // Update inventory UI with counts
-        if (inventoryTomatoCount != null)
+        // Update inventory UI with counts (adjust as needed)
+
+        if (inventoryBlueberryCount != null)
         {
-            inventoryTomatoCount.text = $"Tomato Seeds: {tomatoSeedCount}\nFully Grown: {tomatoFullyGrownCount}";
+            inventoryBlueberryCount.text = $"Blueberry Seeds: {blueberrySeedCount}\nFully Grown: {blueberryFullyGrownCount}"; 
         }
 
-        if (inventoryCarrotCount != null)
+        if (inventoryLemonCount != null)
         {
-            inventoryCarrotCount.text = $"Carrot Seeds: {carrotSeedCount}\nFully Grown: {carrotFullyGrownCount}";
+            inventoryLemonCount.text = $"Lemon Seeds: {lemonSeedCount}\nFully Grown: {lemonFullyGrownCount}";
+        }
+
+        if (inventoryAppleCount != null)
+        {
+            inventoryAppleCount.text = $"Apple Seeds: {appleSeedCount}\nFully Grown: {appleFullyGrownCount}";
+        }
+
+        if (inventoryBananaCount != null)
+        {
+            inventoryBananaCount.text = $"Banana Seeds: {bananaSeedCount}\nFully Grown: {bananaFullyGrownCount}";
+        }
+
+        if (inventoryGrapeCount != null)
+        {
+            inventoryGrapeCount.text = $"Grape Seeds: {grapeSeedCount}\nFully Grown: {grapeFullyGrownCount}";
+        }
+
+        if (inventoryDurianCount != null)
+        {
+            inventoryDurianCount.text = $"Durian Seeds: {durianSeedCount}\nFully Grown: {durianFullyGrownCount}";
+        }
+
+        if (inventoryOrangeCount != null)
+        {
+            inventoryOrangeCount.text = $"Orange Seeds: {orangeSeedCount}\nFully Grown: {orangeFullyGrownCount}";
+        }
+
+        if (inventoryKiwiCount != null)
+        {
+            inventoryKiwiCount.text = $"Kiwi Seeds: {kiwiSeedCount}\nFully Grown: {kiwiFullyGrownCount}";
+        }
+
+        if (inventoryStarfruitCount != null)
+        {
+            inventoryStarfruitCount.text = $"Starfruit Seeds: {starfruitSeedCount}\nFully Grown: {starfruitFullyGrownCount}";
+        }
+
+        if (inventoryPearCount != null)
+        {
+            inventoryPearCount.text = $"Pear Seeds: {pearSeedCount}\nFully Grown: {pearFullyGrownCount}";
+        }
+
+        if (inventoryGoldCount != null)
+        {
+            inventoryGoldCount.text = $"Gold Seeds: {goldSeedCount}\nFully Grown: {goldFullyGrownCount}";
         }
     }
 
@@ -312,4 +613,3 @@ public class TileInteractable : MonoBehaviour
         }
     }
 }
-
