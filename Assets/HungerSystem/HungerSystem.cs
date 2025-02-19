@@ -9,32 +9,33 @@ public class HungerSystem : MonoBehaviour
     [SerializeField] private int _maxHunger;
     private int _hunger;
 
-    // Slider
-    [SerializeField] private GameObject _sliderObj;
-    private Slider _slider;
+    [SerializeField] private GaugeView _hungerGauge;
 
     // Start is called before the first frame update
     void Start()
     {
-        if (_sliderObj != null)
+        if (_hungerGauge == null)
         {
-            _slider = _sliderObj.GetComponent<Slider>();
+            Debug.LogError("hunger gauge is not attached");
+            return;
         }
+
+        _hungerGauge.MaxNumber = _maxHunger;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (_slider == null)
+        if (_hungerGauge == null)
         {
-            Debug.LogError("Slider obj is not attached");
+            Debug.LogError("hunger gauge is not attached");
             return;
         }
 
-        // update slider UI
-        _slider.value = (float)_hunger / _maxHunger;
+        // update Geuge number
+        _hungerGauge.SetGaugeNumber((float)_hunger);
 
-        Debug.Log($"_hunger: {_hunger}, value: {_slider.value}");
+        Debug.Log($"_hunger: {(float)_hunger}");
     }
 
     // Plus Hunger value

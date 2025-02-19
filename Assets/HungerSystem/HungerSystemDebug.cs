@@ -11,15 +11,15 @@ public class HungerSystemDebug : MonoBehaviour
     void Start()
     {
         _hungerSystem = _hungerObj.GetComponent<HungerSystem>();
-        _hungerSystem.Hunger = 50;
-
-        _hungerSystem.PlusHunger(30);
-        _hungerSystem.MinusHunger(10);
+        _hungerSystem.Hunger = 30;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        if (_hungerSystem == null)
+        {
+            Debug.LogError("Hunger Obj is not attached");
+        }
     }
 }
