@@ -4,7 +4,7 @@ using TMPro;
 public class SellPoint : MonoBehaviour
 {
     [Header("Selling Settings")]
-    public int blueberrySellValue = 1; 
+    public int blueberrySellValue = 1;
     public int lemonSellValue = 10;
     public int appleSellValue = 12;
     public int bananaSellValue = 14;
@@ -16,20 +16,36 @@ public class SellPoint : MonoBehaviour
     public int pearSellValue = 26;
     public int goldSellValue = 30;
 
+    [Header("Hunger Reduction Settings")]
+    public int blueberryHungerValue = 1; 
+    public int lemonHungerValue = 2;    
+    public int appleHungerValue = 3;    
+    public int bananaHungerValue = 4;   
+    public int grapeHungerValue = 5;    
+    public int durianHungerValue = 6;   
+    public int orangeHungerValue = 7;   
+    public int kiwiHungerValue = 8;     
+    public int starfruitHungerValue = 9; 
+    public int pearHungerValue = 10;    
+    public int goldHungerValue = 15;    
+
     [Header("UI Elements")]
     public TMP_Text pointsText;
+    public TMP_Text hungerText;
 
     private int totalPoints = 0;
+    private int totalHunger = 100; 
 
     [Header("Player Inventory Reference")]
     public TileInteractable playerInventory;
 
     private bool isPlayerInRange = false;
-    private string interactionMessage = "Press 'E' to sell your fully grown plants!";
+    private string interactionMessage = "Press 'E' to sell your fully grown plants and reduce hunger!";
 
     void Start()
     {
         UpdatePointsUI();
+        UpdateHungerUI();
     }
 
     void Update()
@@ -77,6 +93,21 @@ public class SellPoint : MonoBehaviour
         totalPoints += playerInventory.pearFullyGrownCount * pearSellValue;
         totalPoints += playerInventory.goldFullyGrownCount * goldSellValue;
 
+        // Hunger reduction logic for all plant types:
+        totalHunger -= playerInventory.blueberryFullyGrownCount * blueberryHungerValue;
+        totalHunger -= playerInventory.lemonFullyGrownCount * lemonHungerValue;
+        totalHunger -= playerInventory.appleFullyGrownCount * appleHungerValue;
+        totalHunger -= playerInventory.bananaFullyGrownCount * bananaHungerValue;
+        totalHunger -= playerInventory.grapeFullyGrownCount * grapeHungerValue;
+        totalHunger -= playerInventory.durianFullyGrownCount * durianHungerValue;
+        totalHunger -= playerInventory.orangeFullyGrownCount * orangeHungerValue;
+        totalHunger -= playerInventory.kiwiFullyGrownCount * kiwiHungerValue;
+        totalHunger -= playerInventory.starfruitFullyGrownCount * starfruitHungerValue;
+        totalHunger -= playerInventory.pearFullyGrownCount * pearHungerValue;
+        totalHunger -= playerInventory.goldFullyGrownCount * goldHungerValue;
+
+        // Ensure hunger doesn't go below 0
+        totalHunger = Mathf.Max(totalHunger, 0);
 
         // Reset fully grown counts in the player's inventory:
         playerInventory.blueberryFullyGrownCount = 0;
@@ -92,9 +123,10 @@ public class SellPoint : MonoBehaviour
         playerInventory.goldFullyGrownCount = 0;
 
         UpdatePointsUI();
+        UpdateHungerUI();
         playerInventory.UpdateSeedCountUI(); // Update inventory UI
 
-        Debug.Log("Plants sold!"); // Simplified log message
+        Debug.Log("Plants sold and hunger reduced!"); // Simplified log message
     }
 
     private void UpdatePointsUI()
@@ -106,6 +138,18 @@ public class SellPoint : MonoBehaviour
         else
         {
             Debug.LogError("PointsText UI is not assigned.");
+        }
+    }
+
+    private void UpdateHungerUI()
+    {
+        if (hungerText != null)
+        {
+            hungerText.text = "Hunger: " + totalHunger;
+        }
+        else
+        {
+            Debug.LogError("HungerText UI is not assigned.");
         }
     }
 
