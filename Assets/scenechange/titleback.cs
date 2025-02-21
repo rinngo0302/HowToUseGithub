@@ -14,7 +14,7 @@ public class backtitle : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Return))
         {
-            SceneManager.LoadScene("Yanagimoto");
+            SceneManager.LoadScene("title");
         }
     }
 }
