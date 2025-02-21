@@ -10,6 +10,17 @@ public class startgame : MonoBehaviour
     {
         SceneManager.LoadScene("Yanagimoto");
 
+        if (Input.GetKey(KeyCode.Return))
+        {
+            SceneManager.LoadScene("Yanagimoto");
+        }
+    }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Return))
+        {
+            SceneManager.LoadScene("Yanagimoto");
+        }
     }
 }
 
