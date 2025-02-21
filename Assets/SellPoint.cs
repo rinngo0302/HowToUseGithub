@@ -33,8 +33,8 @@ public class SellPoint : MonoBehaviour
     public TMP_Text pointsText;
     public TMP_Text hungerText;
 
-    private int totalPoints = 0;
-    private int totalHunger = 100; 
+    public int totalPoints = 0;
+    public int totalHunger = 100; 
 
     [Header("Player Inventory Reference")]
     public TileInteractable playerInventory;
