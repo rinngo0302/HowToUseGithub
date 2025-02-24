@@ -27,12 +27,13 @@ public class SellPoint : MonoBehaviour
     public int kiwiHungerValue = 8;     
     public int starfruitHungerValue = 9; 
     public int pearHungerValue = 10;    
-    public int goldHungerValue = 15;    
+    public int goldHungerValue = 15;
 
     [Header("UI Elements")]
     public TMP_Text pointsText;
     public TMP_Text hungerText;
-    [SerializeField] private MoneyMgr _moneyMgr;
+    [SerializeField] private MoneyMgr _moneyMgr;            // Money Manager
+    [SerializeField] private HungerSystem _hungerSystem;    // Hunger System
 
     public int totalPoints = 0;
     public int totalHunger = 100; 
@@ -109,6 +110,8 @@ public class SellPoint : MonoBehaviour
 
         // Ensure hunger doesn't go below 0
         totalHunger = Mathf.Max(totalHunger, 0);
+
+        _hungerSystem.Hunger = totalHunger;
 
         // Reset fully grown counts in the player's inventory:
         playerInventory.blueberryFullyGrownCount = 0;
