@@ -32,6 +32,7 @@ public class SellPoint : MonoBehaviour
     [Header("UI Elements")]
     public TMP_Text pointsText;
     public TMP_Text hungerText;
+    [SerializeField] private MoneyMgr _moneyMgr;
 
     public int totalPoints = 0;
     public int totalHunger = 100; 
@@ -121,6 +122,19 @@ public class SellPoint : MonoBehaviour
         playerInventory.starfruitFullyGrownCount = 0;
         playerInventory.pearFullyGrownCount = 0;
         playerInventory.goldFullyGrownCount = 0;
+
+        // Money Mgr
+        _moneyMgr.MinusMoney(playerInventory.blueberryFullyGrownCount * blueberrySellValue);
+        _moneyMgr.MinusMoney(playerInventory.lemonFullyGrownCount * lemonSellValue);
+        _moneyMgr.MinusMoney(playerInventory.appleFullyGrownCount * appleSellValue);
+        _moneyMgr.MinusMoney(playerInventory.bananaFullyGrownCount * bananaSellValue);
+        _moneyMgr.MinusMoney(playerInventory.grapeFullyGrownCount * grapeSellValue);
+        _moneyMgr.MinusMoney(playerInventory.durianFullyGrownCount * durianSellValue);
+        _moneyMgr.MinusMoney(playerInventory.orangeFullyGrownCount * orangeSellValue);
+        _moneyMgr.MinusMoney(playerInventory.kiwiFullyGrownCount * kiwiSellValue);
+        _moneyMgr.MinusMoney(playerInventory.starfruitFullyGrownCount * starfruitSellValue);
+        _moneyMgr.MinusMoney(playerInventory.pearFullyGrownCount * pearSellValue);
+        _moneyMgr.MinusMoney(playerInventory.goldFullyGrownCount * goldSellValue);
 
         UpdatePointsUI();
         UpdateHungerUI();
