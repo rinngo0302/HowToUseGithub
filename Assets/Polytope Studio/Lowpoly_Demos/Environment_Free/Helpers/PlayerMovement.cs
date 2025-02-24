@@ -14,7 +14,6 @@ public class PlayerMovement : MonoBehaviour
     private CharacterController characterController;
     private Vector3 velocity;
     private bool isGrounded;
-    private float xRotation = 0f; // To control vertical rotation (up/down)
 
     [Header("Ground Check")]
     public Transform groundCheck;
@@ -29,27 +28,8 @@ public class PlayerMovement : MonoBehaviour
 
     void Update()
     {
-        // Handle mouse look
-        HandleMouseLook();
-
         // Handle player movement
         HandleMovement();
-    }
-
-    void HandleMouseLook()
-    {
-        // Get the mouse X and Y inputs for looking around
-        float mouseX = Input.GetAxis("Mouse X") * mouseSensitivity * Time.deltaTime;
-        float mouseY = Input.GetAxis("Mouse Y") * mouseSensitivity * Time.deltaTime;
-
-        // Rotate the camera up and down (vertical axis)
-        xRotation -= mouseY; // Increase or decrease the vertical angle based on the mouse movement
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f); // Limit up/down angle to prevent over-rotation
-
-        cameraTransform.localRotation = Quaternion.Euler(xRotation, 0f, 0f); // Apply vertical rotation to the camera
-
-        // Rotate the player left and right (horizontal axis)
-        transform.Rotate(Vector3.up * mouseX); // Apply horizontal rotation to the player's body
     }
 
     void HandleMovement()
@@ -85,5 +65,3 @@ public class PlayerMovement : MonoBehaviour
         characterController.Move(velocity * Time.deltaTime);
     }
 }
-
-

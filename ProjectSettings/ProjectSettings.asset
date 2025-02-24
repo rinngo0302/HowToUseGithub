@@ -767,10 +767,10 @@ PlayerSettings:
   apiCompatibilityLevel: 6
   activeInputHandler: 2
   windowsGamepadBackendHint: 0
-  cloudProjectId: d720ab98-32f2-4d00-a9b0-6c16fa45ee03
+  cloudProjectId: 2e376426-d601-40fb-9141-3485279fb91a
   framebufferDepthMemorylessMode: 0
   qualitySettingsNames: []
-  projectName: HowToUseGithub
+  projectName: Yeap
   organizationId: mingtat703
   cloudEnabled: 0
   legacyClampBlendShapeWeights: 0

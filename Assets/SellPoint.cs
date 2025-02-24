@@ -4,29 +4,52 @@ using TMPro;
 public class SellPoint : MonoBehaviour
 {
     [Header("Selling Settings")]
-    public int tomatoSellValue = 10;      // Points per fully grown tomato
-    public int carrotSellValue = 15;      // Points per fully grown carrot
+    public int blueberrySellValue = 1;
+    public int lemonSellValue = 10;
+    public int appleSellValue = 12;
+    public int bananaSellValue = 14;
+    public int grapeSellValue = 16;
+    public int durianSellValue = 18;
+    public int orangeSellValue = 20;
+    public int kiwiSellValue = 22;
+    public int starfruitSellValue = 24;
+    public int pearSellValue = 26;
+    public int goldSellValue = 30;
+
+    [Header("Hunger Reduction Settings")]
+    public int blueberryHungerValue = 1; 
+    public int lemonHungerValue = 2;    
+    public int appleHungerValue = 3;    
+    public int bananaHungerValue = 4;   
+    public int grapeHungerValue = 5;    
+    public int durianHungerValue = 6;   
+    public int orangeHungerValue = 7;   
+    public int kiwiHungerValue = 8;     
+    public int starfruitHungerValue = 9; 
+    public int pearHungerValue = 10;    
+    public int goldHungerValue = 15;    
 
     [Header("UI Elements")]
-    public TMP_Text pointsText;           // UI Text for displaying points
+    public TMP_Text pointsText;
+    public TMP_Text hungerText;
 
-    private int totalPoints = 0;          // Total points earned by the player
+    public int totalPoints = 0;
+    public int totalHunger = 100; 
 
     [Header("Player Inventory Reference")]
-    public TileInteractable playerInventory; // Reference to the player's inventory
+    public TileInteractable playerInventory;
 
-    private bool isPlayerInRange = false; // Track if the player is near the sell point
-    private string interactionMessage = "Press 'E' to sell your fully grown plants!";
+    private bool isPlayerInRange = false;
+    private string interactionMessage = "Press 'E' to sell your fully grown plants and reduce hunger!";
 
     void Start()
     {
-        // Initialize the points UI when the game starts
         UpdatePointsUI();
+        UpdateHungerUI();
     }
 
     void Update()
     {
-        // Check for player interaction
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             SellFullyGrownPlants();
@@ -57,26 +80,53 @@ public class SellPoint : MonoBehaviour
             return;
         }
 
-        // Calculate points for fully grown tomatoes and carrots
-        int tomatoesSold = playerInventory.tomatoFullyGrownCount;
-        int carrotsSold = playerInventory.carrotFullyGrownCount;
+        // Sell logic for all plant types:
+        totalPoints += playerInventory.blueberryFullyGrownCount * blueberrySellValue;
+        totalPoints += playerInventory.lemonFullyGrownCount * lemonSellValue;
+        totalPoints += playerInventory.appleFullyGrownCount * appleSellValue;
+        totalPoints += playerInventory.bananaFullyGrownCount * bananaSellValue;
+        totalPoints += playerInventory.grapeFullyGrownCount * grapeSellValue;
+        totalPoints += playerInventory.durianFullyGrownCount * durianSellValue;
+        totalPoints += playerInventory.orangeFullyGrownCount * orangeSellValue;
+        totalPoints += playerInventory.kiwiFullyGrownCount * kiwiSellValue;
+        totalPoints += playerInventory.starfruitFullyGrownCount * starfruitSellValue;
+        totalPoints += playerInventory.pearFullyGrownCount * pearSellValue;
+        totalPoints += playerInventory.goldFullyGrownCount * goldSellValue;
 
-        // Update the total points
-        totalPoints += tomatoesSold * tomatoSellValue;
-        totalPoints += carrotsSold * carrotSellValue;
+        // Hunger reduction logic for all plant types:
+        totalHunger -= playerInventory.blueberryFullyGrownCount * blueberryHungerValue;
+        totalHunger -= playerInventory.lemonFullyGrownCount * lemonHungerValue;
+        totalHunger -= playerInventory.appleFullyGrownCount * appleHungerValue;
+        totalHunger -= playerInventory.bananaFullyGrownCount * bananaHungerValue;
+        totalHunger -= playerInventory.grapeFullyGrownCount * grapeHungerValue;
+        totalHunger -= playerInventory.durianFullyGrownCount * durianHungerValue;
+        totalHunger -= playerInventory.orangeFullyGrownCount * orangeHungerValue;
+        totalHunger -= playerInventory.kiwiFullyGrownCount * kiwiHungerValue;
+        totalHunger -= playerInventory.starfruitFullyGrownCount * starfruitHungerValue;
+        totalHunger -= playerInventory.pearFullyGrownCount * pearHungerValue;
+        totalHunger -= playerInventory.goldFullyGrownCount * goldHungerValue;
 
-        // Reset the fully grown counts in the player's inventory
-        playerInventory.tomatoFullyGrownCount = 0;
-        playerInventory.carrotFullyGrownCount = 0;
+        // Ensure hunger doesn't go below 0
+        totalHunger = Mathf.Max(totalHunger, 0);
 
-        // Update the points UI
+        // Reset fully grown counts in the player's inventory:
+        playerInventory.blueberryFullyGrownCount = 0;
+        playerInventory.lemonFullyGrownCount = 0;
+        playerInventory.appleFullyGrownCount = 0;
+        playerInventory.bananaFullyGrownCount = 0;
+        playerInventory.grapeFullyGrownCount = 0;
+        playerInventory.durianFullyGrownCount = 0;
+        playerInventory.orangeFullyGrownCount = 0;
+        playerInventory.kiwiFullyGrownCount = 0;
+        playerInventory.starfruitFullyGrownCount = 0;
+        playerInventory.pearFullyGrownCount = 0;
+        playerInventory.goldFullyGrownCount = 0;
+
         UpdatePointsUI();
+        UpdateHungerUI();
+        playerInventory.UpdateSeedCountUI(); // Update inventory UI
 
-        // Update the player's inventory UI
-        playerInventory.UpdateSeedCountUI();
-
-        // Log the sold amount
-        Debug.Log($"Sold {tomatoesSold} tomatoes and {carrotsSold} carrots for {totalPoints} points.");
+        Debug.Log("Plants sold and hunger reduced!"); // Simplified log message
     }
 
     private void UpdatePointsUI()
@@ -91,13 +141,23 @@ public class SellPoint : MonoBehaviour
         }
     }
 
+    private void UpdateHungerUI()
+    {
+        if (hungerText != null)
+        {
+            hungerText.text = "Hunger: " + totalHunger;
+        }
+        else
+        {
+            Debug.LogError("HungerText UI is not assigned.");
+        }
+    }
+
     void OnGUI()
     {
         if (isPlayerInRange)
         {
-            // Display the interaction message near the center of the screen
             GUI.Label(new Rect(10, 10, 300, 40), interactionMessage);
         }
     }
 }
-
