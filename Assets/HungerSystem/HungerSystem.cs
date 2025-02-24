@@ -32,13 +32,16 @@ public class HungerSystem : MonoBehaviour
             return;
         }
 
-        // update Geuge number
+        // update Gauge number
         _hungerGauge.SetGaugeNumber((float)_hunger);
 
-        Debug.Log($"_hunger: {(float)_hunger}");
+        //Debug.Log($"_hunger: {(float)_hunger}, _maxHunger: {_maxHunger}");
     }
 
-    // Plus Hunger value
+    /// <summary>
+    /// Plus Hunger Value
+    /// </summary>
+    /// <param name="hunger"> plus </param>
     public void PlusHunger(int hunger)
     {
         if (hunger <= 0)
@@ -48,9 +51,14 @@ public class HungerSystem : MonoBehaviour
         }
 
         _hunger += hunger;
+
+        CheckIsOverMax();
     }
 
-    // Minus Hunger value
+    /// <summary>
+    /// Minus Hunger Value
+    /// </summary>
+    /// <param name="hunger"> minus </param>
     public void MinusHunger(int hunger)
     {
         if (hunger <= 0)
@@ -60,9 +68,20 @@ public class HungerSystem : MonoBehaviour
         }
 
         _hunger -= hunger;
+        CheckIsOverMax();
     }
 
-    // Hunger(Read/Write)
+    /// <summary>
+    /// If Hunger is over max, set to max
+    /// </summary>
+    private void CheckIsOverMax()
+    {
+        _hunger = (_hunger > _maxHunger) ? _maxHunger : _hunger;
+    }
+
+    /// <summary>
+    /// Hunger(Read/Write)
+    /// </summary>
     public int Hunger
     {
         get
@@ -79,6 +98,7 @@ public class HungerSystem : MonoBehaviour
             }
 
             _hunger = value;
+            CheckIsOverMax();
         }
     }
 }

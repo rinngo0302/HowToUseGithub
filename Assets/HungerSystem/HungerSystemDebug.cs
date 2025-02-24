@@ -11,7 +11,7 @@ public class HungerSystemDebug : MonoBehaviour
     void Start()
     {
         _hungerSystem = _hungerObj.GetComponent<HungerSystem>();
-        _hungerSystem.Hunger = 30;
+        _hungerSystem.Hunger = 70;
     }
 
     // Update is called once per frame

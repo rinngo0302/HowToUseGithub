@@ -1,6 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Image/Money.meta
+guid: 2286055fce28eb040a36c784f382c2fa
+folderAsset: yes
+DefaultImporter:
+========
 guid: 4016291fb78fc0042b9424f87d99b8da
 PrefabImporter:
+>>>>>>>> 247b24afcbfe65966291ae696c0ea0e5b813ed60:Assets/scenechange/orange.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 
