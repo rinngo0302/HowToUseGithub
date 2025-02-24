@@ -609,7 +609,9 @@ public class TileInteractable : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(currentMessage) && isPlayerInRange)
         {
-            GUI.Label(new Rect(10, 10, 200, 30), currentMessage);
+            GUI.skin.label.fontSize = 100;
+            GUI.skin.label.normal.textColor = Color.black;
+            GUI.Label(new Rect(10, 10, 2000, 300), currentMessage);
         }
     }
 }
