@@ -111,6 +111,7 @@ public class SellPoint : MonoBehaviour
         // Ensure hunger doesn't go below 0
         totalHunger = Mathf.Max(totalHunger, 0);
 
+        // Update Hunger Gauge UI
         _hungerSystem.Hunger = totalHunger;
 
         // Reset fully grown counts in the player's inventory:
