@@ -20,6 +20,9 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
+    // SE
+    private bool _isPlayMovingSE = false;
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();
@@ -48,6 +51,21 @@ public class PlayerMovement : MonoBehaviour
 
         // Create a movement vector based on input
         Vector3 move = transform.right * moveX + transform.forward * moveZ;
+
+        // SE System
+        if (move != Vector3.zero && !_isPlayMovingSE)
+        {
+            _isPlayMovingSE = true;
+            SE.Instance.Play(0, true);
+            //Debug.Log("Play Moving SE!");
+        }
+        
+        if (move == Vector3.zero && _isPlayMovingSE)
+        {
+            _isPlayMovingSE = false;
+            SE.Instance.Stop(0);
+            //Debug.Log("Stop Moving SE!");
+        }
 
         // Move the character
         characterController.Move(move * moveSpeed * Time.deltaTime);
