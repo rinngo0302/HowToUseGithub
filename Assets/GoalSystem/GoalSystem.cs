@@ -30,6 +30,8 @@ public class GoalSystem : MonoBehaviour
     {
         int hunger = _hungerSystem.Hunger;
 
+        Debug.Log(hunger);
+
         return hunger <= 0;
     }
 }
