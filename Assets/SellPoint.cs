@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.UI; // Required for UI components
 using TMPro;
 
 public class SellPoint : MonoBehaviour
@@ -17,26 +18,26 @@ public class SellPoint : MonoBehaviour
     public int goldSellValue = 30;
 
     [Header("Hunger Reduction Settings")]
-    public int blueberryHungerValue = 1; 
-    public int lemonHungerValue = 2;    
-    public int appleHungerValue = 3;    
-    public int bananaHungerValue = 4;   
-    public int grapeHungerValue = 5;    
-    public int durianHungerValue = 6;   
-    public int orangeHungerValue = 7;   
-    public int kiwiHungerValue = 8;     
-    public int starfruitHungerValue = 9; 
-    public int pearHungerValue = 10;    
+    public int blueberryHungerValue = 1;
+    public int lemonHungerValue = 2;
+    public int appleHungerValue = 3;
+    public int bananaHungerValue = 4;
+    public int grapeHungerValue = 5;
+    public int durianHungerValue = 6;
+    public int orangeHungerValue = 7;
+    public int kiwiHungerValue = 8;
+    public int starfruitHungerValue = 9;
+    public int pearHungerValue = 10;
     public int goldHungerValue = 15;
 
     [Header("UI Elements")]
     public TMP_Text pointsText;
     public TMP_Text hungerText;
-    [SerializeField] private MoneyMgr _moneyMgr;            // Money Manager
+    public Image hungerBarFill; // Reference to the hunger bar fill image
     [SerializeField] private HungerSystem _hungerSystem;    // Hunger System
 
     public int totalPoints = 0;
-    public int totalHunger = 100; 
+    public int totalHunger = 100;
 
     [Header("Player Inventory Reference")]
     public TileInteractable playerInventory;
@@ -88,7 +89,6 @@ public class SellPoint : MonoBehaviour
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireCube(transform.position, interactionBoxSize);
     }
-
 
     private void OnTriggerEnter(Collider other)
     {
@@ -159,19 +159,6 @@ public class SellPoint : MonoBehaviour
         playerInventory.pearFullyGrownCount = 0;
         playerInventory.goldFullyGrownCount = 0;
 
-        // Money Mgr
-        _moneyMgr.MinusMoney(playerInventory.blueberryFullyGrownCount * blueberrySellValue);
-        _moneyMgr.MinusMoney(playerInventory.lemonFullyGrownCount * lemonSellValue);
-        _moneyMgr.MinusMoney(playerInventory.appleFullyGrownCount * appleSellValue);
-        _moneyMgr.MinusMoney(playerInventory.bananaFullyGrownCount * bananaSellValue);
-        _moneyMgr.MinusMoney(playerInventory.grapeFullyGrownCount * grapeSellValue);
-        _moneyMgr.MinusMoney(playerInventory.durianFullyGrownCount * durianSellValue);
-        _moneyMgr.MinusMoney(playerInventory.orangeFullyGrownCount * orangeSellValue);
-        _moneyMgr.MinusMoney(playerInventory.kiwiFullyGrownCount * kiwiSellValue);
-        _moneyMgr.MinusMoney(playerInventory.starfruitFullyGrownCount * starfruitSellValue);
-        _moneyMgr.MinusMoney(playerInventory.pearFullyGrownCount * pearSellValue);
-        _moneyMgr.MinusMoney(playerInventory.goldFullyGrownCount * goldSellValue);
-
         UpdatePointsUI();
         UpdateHungerUI();
         playerInventory.UpdateSeedCountUI(); // Update inventory UI
@@ -183,7 +170,7 @@ public class SellPoint : MonoBehaviour
     {
         if (pointsText != null)
         {
-            pointsText.text = "Points: " + totalPoints;
+            pointsText.text = totalPoints.ToString();
         }
         else
         {
@@ -200,6 +187,16 @@ public class SellPoint : MonoBehaviour
         else
         {
             Debug.LogError("HungerText UI is not assigned.");
+        }
+
+        // Update the hunger bar fill amount
+        if (hungerBarFill != null)
+        {
+            hungerBarFill.fillAmount = (float)totalHunger / 100f; // Normalize hunger to a value between 0 and 1
+        }
+        else
+        {
+            Debug.LogError("HungerBarFill UI is not assigned.");
         }
     }
 
