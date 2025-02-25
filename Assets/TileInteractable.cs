@@ -137,6 +137,7 @@ public class TileInteractable : MonoBehaviour
         inventoryPanel.SetActive(false);
 
         // Add button listeners
+        /*
         blueberrySeedButton.onClick.AddListener(() => SelectSeed("Blueberry")); 
         lemonSeedButton.onClick.AddListener(() => SelectSeed("Lemon"));
         appleSeedButton.onClick.AddListener(() => SelectSeed("Apple"));
@@ -149,6 +150,7 @@ public class TileInteractable : MonoBehaviour
         pearSeedButton.onClick.AddListener(() => SelectSeed("Pear"));
         goldSeedButton.onClick.AddListener(() => SelectSeed("Gold"));
         closeUIButton.onClick.AddListener(CloseSeedSelection);
+        */
 
         // Ensure all models are inactive at the start, except the seed model
         if (seedStage != null) seedStage.SetActive(false);
@@ -231,49 +233,51 @@ public class TileInteractable : MonoBehaviour
             SE.Instance.PlayOneShot(3);
         }
 
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            SelectSeed("Blueberry");
-        }
-        else if(Input.GetKeyDown(KeyCode.L))
-        {
-            SelectSeed("Lemon");
-        }
-        else if (Input.GetKeyDown(KeyCode.R))
-        {
-            SelectSeed("Apple");
-        }
-        else if (Input.GetKeyDown(KeyCode.N))
-        {
-            SelectSeed("Banana");
-        }
-        else if (Input.GetKeyDown(KeyCode.G))
-        {
-            SelectSeed("Grape");
-        }
-        else if (Input.GetKeyDown(KeyCode.Y))
-        {
-            SelectSeed("Durian");
-        }
-        else if (Input.GetKeyDown(KeyCode.O))
-        {
-            SelectSeed("Orange");
-        }
-        else if (Input.GetKeyDown(KeyCode.K))
-        {
-            SelectSeed("Kiwi");
-        }
-        else if (Input.GetKeyDown(KeyCode.F))
-        {
-            SelectSeed("Starfruit");
-        }
-        else if (Input.GetKeyDown(KeyCode.P))
-        {
-            SelectSeed("Pear");
-        }
-        else if (Input.GetKeyDown(KeyCode.G))
-        {
-            SelectSeed("Gold");
+        if (isPlayerInRange) {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                SelectSeed("Blueberry");
+            }
+            else if (Input.GetKeyDown(KeyCode.L))
+            {
+                SelectSeed("Lemon");
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                SelectSeed("Apple");
+            }
+            else if (Input.GetKeyDown(KeyCode.N))
+            {
+                SelectSeed("Banana");
+            }
+            else if (Input.GetKeyDown(KeyCode.G))
+            {
+                SelectSeed("Grape");
+            }
+            else if (Input.GetKeyDown(KeyCode.Y))
+            {
+                SelectSeed("Durian");
+            }
+            else if (Input.GetKeyDown(KeyCode.O))
+            {
+                SelectSeed("Orange");
+            }
+            else if (Input.GetKeyDown(KeyCode.K))
+            {
+                SelectSeed("Kiwi");
+            }
+            else if (Input.GetKeyDown(KeyCode.F))
+            {
+                SelectSeed("Starfruit");
+            }
+            else if (Input.GetKeyDown(KeyCode.P))
+            {
+                SelectSeed("Pear");
+            }
+            else if (Input.GetKeyDown(KeyCode.G))
+            {
+                SelectSeed("Gold");
+            }
         }
     }
 
@@ -705,9 +709,9 @@ public class TileInteractable : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(currentMessage) && isPlayerInRange)
         {
-            GUI.skin.label.fontSize = 100;
+            GUI.skin.label.fontSize = 90;
             GUI.skin.label.normal.textColor = Color.black;
-            GUI.Label(new Rect(10, 10, 2000, 300), currentMessage);
+            GUI.Label(new Rect(10, 10, 300, 120), currentMessage);
         }
     }
 }

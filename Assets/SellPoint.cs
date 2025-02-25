@@ -111,6 +111,62 @@ public class SellPoint : MonoBehaviour
         {
             ToggleShopUI();
         }
+
+        if (isPlayerInRange)
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                 BuySeed("Blueberry");
+            }
+            else if (Input.GetKeyDown(KeyCode.L))
+            {
+                BuySeed("Lemon");
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                BuySeed("Apple");
+            }
+            else if (Input.GetKeyDown(KeyCode.N))
+            {
+                BuySeed("Banana");
+            }
+            else if (Input.GetKeyDown(KeyCode.G))
+            {
+                BuySeed("Grape");
+            }
+            else if (Input.GetKeyDown(KeyCode.Y))
+            {
+                BuySeed("Durian");
+            }
+            else if (Input.GetKeyDown(KeyCode.O))
+            {
+                BuySeed("Orange");
+            }
+            else if (Input.GetKeyDown(KeyCode.K))
+            {
+                BuySeed("Kiwi");
+            }
+            else if (Input.GetKeyDown(KeyCode.F))
+            {
+                BuySeed("Starfruit");
+            }
+            else if (Input.GetKeyDown(KeyCode.P))
+            {
+                BuySeed("Pear");
+            }
+            else if (Input.GetKeyDown(KeyCode.G))
+            {
+                BuySeed("Gold");
+            }
+            else if(Input.GetKeyDown(KeyCode.Return))
+            {
+                SellFullyGrownPlants();
+            }
+            else if(Input.GetKeyDown(KeyCode.X))
+            {
+                CloseShopUI();
+            }
+        }
     }
 
     void CheckPlayerInRange()
@@ -149,6 +205,7 @@ public class SellPoint : MonoBehaviour
     private void InitializeButtonListeners()
     {
         // Assign button click listeners for buying seeds
+        /*
         buyBlueberryButton.onClick.AddListener(() => BuySeed("Blueberry"));
         buyLemonButton.onClick.AddListener(() => BuySeed("Lemon"));
         buyAppleButton.onClick.AddListener(() => BuySeed("Apple"));
@@ -160,12 +217,13 @@ public class SellPoint : MonoBehaviour
         buyStarfruitButton.onClick.AddListener(() => BuySeed("Starfruit"));
         buyPearButton.onClick.AddListener(() => BuySeed("Pear"));
         buyGoldButton.onClick.AddListener(() => BuySeed("Gold"));
+        */
 
         // Assign button click listener for selling all plants
-        sellAllButton.onClick.AddListener(SellFullyGrownPlants);
+        //sellAllButton.onClick.AddListener(SellFullyGrownPlants);
 
         // Assign button click listener for closing the shop UI
-        closeButton.onClick.AddListener(CloseShopUI);
+        //closeButton.onClick.AddListener(CloseShopUI);
     }
 
     public void BuySeed(string seedType)
@@ -350,6 +408,7 @@ public class SellPoint : MonoBehaviour
 
     private void UpdateSeedPricesUI()
     {
+        Debug.Log("VR");
         if (blueberrySeedPriceText != null)
             blueberrySeedPriceText.text = $"Blueberry Seed: {blueberrySeedPrice} Points";
         if (lemonSeedPriceText != null)
