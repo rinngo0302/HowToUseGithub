@@ -50,13 +50,42 @@ public class SellPoint : MonoBehaviour
         UpdateHungerUI();
     }
 
+    [Header("Interaction Settings")]
+    public Vector3 interactionBoxSize = new Vector3(3f, 3f, 3f); // Adjust size as needed
+    public float interactionRange = 3f;
+
     void Update()
     {
+        CheckPlayerInRange();
+
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             SellFullyGrownPlants();
         }
     }
+
+    void CheckPlayerInRange()
+    {
+        Collider[] hitColliders = Physics.OverlapBox(transform.position, interactionBoxSize / 2);
+        isPlayerInRange = false;
+
+        foreach (var hitCollider in hitColliders)
+        {
+            if (hitCollider.CompareTag("Player"))
+            {
+                isPlayerInRange = true;
+                break;
+            }
+        }
+    }
+
+    // Draw interaction box in the Scene view
+    void OnDrawGizmosSelected()
+    {
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawWireCube(transform.position, interactionBoxSize);
+    }
+
 
     private void OnTriggerEnter(Collider other)
     {
