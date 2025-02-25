@@ -51,7 +51,7 @@ public class TileInteractable : MonoBehaviour
     public TMP_Text inventoryGoldCount;
 
     // Inventory
-    public int blueberrySeedCount = 0;
+    public int blueberrySeedCount = 10;
     public int lemonSeedCount = 0;
     public int appleSeedCount = 0;
     public int bananaSeedCount = 0;

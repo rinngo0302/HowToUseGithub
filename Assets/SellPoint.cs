@@ -5,17 +5,17 @@ using UnityEngine.UI;
 public class SellPoint : MonoBehaviour
 {
     [Header("Selling Settings")]
-    public int blueberrySellValue = 1;
+    public int blueberrySellValue = 5;
     public int lemonSellValue = 10;
-    public int appleSellValue = 12;
-    public int bananaSellValue = 14;
-    public int grapeSellValue = 16;
-    public int durianSellValue = 18;
-    public int orangeSellValue = 20;
-    public int kiwiSellValue = 22;
-    public int starfruitSellValue = 24;
-    public int pearSellValue = 26;
-    public int goldSellValue = 30;
+    public int appleSellValue = 20;
+    public int bananaSellValue = 30;
+    public int grapeSellValue = 50;
+    public int durianSellValue = 100;
+    public int orangeSellValue = 200;
+    public int kiwiSellValue = 300;
+    public int starfruitSellValue = 500;
+    public int pearSellValue = 1000;
+    public int goldSellValue = 3000;
 
     [Header("Hunger Reduction Settings")]
     public int blueberryHungerValue = 1;
@@ -28,20 +28,20 @@ public class SellPoint : MonoBehaviour
     public int kiwiHungerValue = 8;
     public int starfruitHungerValue = 9;
     public int pearHungerValue = 10;
-    public int goldHungerValue = 15;
+    public int goldHungerValue = 30;
 
     [Header("Seed Prices")]
-    public int blueberrySeedPrice = 5;
-    public int lemonSeedPrice = 10;
-    public int appleSeedPrice = 15;
+    public int blueberrySeedPrice = 1;
+    public int lemonSeedPrice = 5;
+    public int appleSeedPrice = 10;
     public int bananaSeedPrice = 20;
-    public int grapeSeedPrice = 25;
-    public int durianSeedPrice = 30;
-    public int orangeSeedPrice = 35;
-    public int kiwiSeedPrice = 40;
-    public int starfruitSeedPrice = 45;
-    public int pearSeedPrice = 50;
-    public int goldSeedPrice = 100;
+    public int grapeSeedPrice = 30;
+    public int durianSeedPrice = 50;
+    public int orangeSeedPrice = 100;
+    public int kiwiSeedPrice = 200;
+    public int starfruitSeedPrice = 300;
+    public int pearSeedPrice = 500;
+    public int goldSeedPrice = 1000;
 
     [Header("UI Elements")]
     public TMP_Text pointsText;
