@@ -20,6 +20,7 @@ public class PlayerMovement : MonoBehaviour
     public float groundDistance = 0.4f;
     public LayerMask groundMask;
 
+
     void Start()
     {
         characterController = GetComponent<CharacterController>();

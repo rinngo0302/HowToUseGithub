@@ -127,6 +127,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "Active",
+                    "type": "Value",
+                    "id": "3a711abd-4725-445c-bcec-79a5397d59ad",
+                    "expectedControlType": "Axis",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "index trigger",
+                    "type": "Button",
+                    "id": "52bfac84-ca78-4826-95ca-42f24e85c44a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -154,12 +172,34 @@
                 },
                 {
                     "name": "",
-                    "id": "2e352346-7b98-4298-bc7c-cef5ea71fdcf",
-                    "path": "<XRController>{RightHand}/{GripButton}",
+                    "id": "2281be5e-d277-4507-9403-eac866863660",
+                    "path": "<OculusTouchController>{RightHand}/triggerPressed",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
                     "action": "Button",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6a70abcb-b3bc-443a-bc2e-2e74b0c63503",
+                    "path": "<XRController>{RightHand}/{Trigger}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Active",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "baf12879-4654-4f8d-93f3-f2ebdd9c26c5",
+                    "path": "<OculusTouchController>/{TriggerButton}",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "index trigger",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -124,7 +124,7 @@ public class TileInteractable : MonoBehaviour
 
     private string currentMessage = ""; // Current message displayed to the player
 
-    [SerializeField] private InputActionReference interactAction; // Use reference
+    [SerializeField] private InputActionProperty interactAction; // Use reference
 
     void Start()
     {
@@ -171,6 +171,9 @@ public class TileInteractable : MonoBehaviour
 
     void Update()
     {
+        if (interactAction.action.WasPressedThisFrame())
+            Debug.Log("Start:TRIGGER");
+
         if (player == null)
         {
             Debug.LogError("Player object not found!");
@@ -185,16 +188,18 @@ public class TileInteractable : MonoBehaviour
             if (!isPlanted)
             {
                 currentMessage = interactionMessage; // "Press 'E' to plant seed"
-                if (interactAction.action.WasPerformedThisFrame())
+                if (interactAction.action.WasPressedThisFrame() || Input.GetKeyDown(KeyCode.E)) //
                 {
+                    Debug.Log("PLANT:TRIGGER");
                     OpenSeedSelectionUI();
                 }
             }
             else if (isHarvestable)
             {
                 currentMessage = harvestMessage; // "Press 'E' to harvest the plant"
-                if (interactAction.action.WasPerformedThisFrame())
+                if (interactAction.action.WasPressedThisFrame() || Input.GetKeyDown(KeyCode.E))
                 {
+                    Debug.Log("HARVEST:TRIGGER");
                     Harvest();
                 }
             }
@@ -653,9 +658,9 @@ public class TileInteractable : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(currentMessage) && isPlayerInRange)
         {
-            GUI.skin.label.fontSize = 100;
+            GUI.skin.label.fontSize = 30;
             GUI.skin.label.normal.textColor = Color.black;
-            GUI.Label(new Rect(10, 10, 2000, 300), currentMessage);
+            GUI.Label(new Rect(10, 10, 600, 60), currentMessage);
         }
     }
 }
