@@ -185,7 +185,7 @@ public class TileInteractable : MonoBehaviour
             if (!isPlanted)
             {
                 currentMessage = interactionMessage; // "Press 'E' to plant seed"
-                if (interactAction.action.WasPerformedThisFrame())
+                if (interactAction.action.WasPerformedThisFrame() || Input.GetKey(KeyCode.E))
                 {
                     OpenSeedSelectionUI();
                 }
@@ -193,7 +193,7 @@ public class TileInteractable : MonoBehaviour
             else if (isHarvestable)
             {
                 currentMessage = harvestMessage; // "Press 'E' to harvest the plant"
-                if (interactAction.action.WasPerformedThisFrame())
+                if (interactAction.action.WasPerformedThisFrame() || Input.GetKey(KeyCode.E))
                 {
                     Harvest();
                 }
@@ -230,12 +230,58 @@ public class TileInteractable : MonoBehaviour
             ToggleInventory();
             SE.Instance.PlayOneShot(3);
         }
+
+        if (Input.GetKeyDown(KeyCode.B))
+        {
+            SelectSeed("Blueberry");
+        }
+        else if(Input.GetKeyDown(KeyCode.L))
+        {
+            SelectSeed("Lemon");
+        }
+        else if (Input.GetKeyDown(KeyCode.R))
+        {
+            SelectSeed("Apple");
+        }
+        else if (Input.GetKeyDown(KeyCode.N))
+        {
+            SelectSeed("Banana");
+        }
+        else if (Input.GetKeyDown(KeyCode.G))
+        {
+            SelectSeed("Grape");
+        }
+        else if (Input.GetKeyDown(KeyCode.Y))
+        {
+            SelectSeed("Durian");
+        }
+        else if (Input.GetKeyDown(KeyCode.O))
+        {
+            SelectSeed("Orange");
+        }
+        else if (Input.GetKeyDown(KeyCode.K))
+        {
+            SelectSeed("Kiwi");
+        }
+        else if (Input.GetKeyDown(KeyCode.F))
+        {
+            SelectSeed("Starfruit");
+        }
+        else if (Input.GetKeyDown(KeyCode.P))
+        {
+            SelectSeed("Pear");
+        }
+        else if (Input.GetKeyDown(KeyCode.G))
+        {
+            SelectSeed("Gold");
+        }
     }
 
     void OpenSeedSelectionUI()
     {
         if (isPlayerInRange && !isPlanted)
         {
+            Debug.Log("OpenSeedSelectUI");
             seedSelectionUI.SetActive(true);
             Cursor.lockState = CursorLockMode.None;
             Cursor.visible = true;
@@ -252,6 +298,7 @@ public class TileInteractable : MonoBehaviour
             starfruitSeedButton.interactable = starfruitSeedCount > 0;
             pearSeedButton.interactable = pearSeedCount > 0;
             goldSeedButton.interactable = goldSeedCount > 0;
+
         }
     }
 
