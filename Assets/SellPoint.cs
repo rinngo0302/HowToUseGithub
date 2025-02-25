@@ -5,17 +5,17 @@ using UnityEngine.UI;
 public class SellPoint : MonoBehaviour
 {
     [Header("Selling Settings")]
-    public int blueberrySellValue = 5;
+    public int blueberrySellValue = 1;
     public int lemonSellValue = 10;
-    public int appleSellValue = 20;
-    public int bananaSellValue = 30;
-    public int grapeSellValue = 50;
-    public int durianSellValue = 100;
-    public int orangeSellValue = 200;
-    public int kiwiSellValue = 300;
-    public int starfruitSellValue = 500;
-    public int pearSellValue = 1000;
-    public int goldSellValue = 3000;
+    public int appleSellValue = 12;
+    public int bananaSellValue = 14;
+    public int grapeSellValue = 16;
+    public int durianSellValue = 18;
+    public int orangeSellValue = 20;
+    public int kiwiSellValue = 22;
+    public int starfruitSellValue = 24;
+    public int pearSellValue = 26;
+    public int goldSellValue = 30;
 
     [Header("Hunger Reduction Settings")]
     public int blueberryHungerValue = 1;
@@ -28,20 +28,20 @@ public class SellPoint : MonoBehaviour
     public int kiwiHungerValue = 8;
     public int starfruitHungerValue = 9;
     public int pearHungerValue = 10;
-    public int goldHungerValue = 30;
+    public int goldHungerValue = 15;
 
     [Header("Seed Prices")]
-    public int blueberrySeedPrice = 1;
-    public int lemonSeedPrice = 5;
-    public int appleSeedPrice = 10;
+    public int blueberrySeedPrice = 5;
+    public int lemonSeedPrice = 10;
+    public int appleSeedPrice = 15;
     public int bananaSeedPrice = 20;
-    public int grapeSeedPrice = 30;
-    public int durianSeedPrice = 50;
-    public int orangeSeedPrice = 100;
-    public int kiwiSeedPrice = 200;
-    public int starfruitSeedPrice = 300;
-    public int pearSeedPrice = 500;
-    public int goldSeedPrice = 1000;
+    public int grapeSeedPrice = 25;
+    public int durianSeedPrice = 30;
+    public int orangeSeedPrice = 35;
+    public int kiwiSeedPrice = 40;
+    public int starfruitSeedPrice = 45;
+    public int pearSeedPrice = 50;
+    public int goldSeedPrice = 100;
 
     [Header("UI Elements")]
     public TMP_Text pointsText;
@@ -76,7 +76,7 @@ public class SellPoint : MonoBehaviour
 
     [Header("Interaction Settings")]
     public Vector3 interactionBoxSize = new Vector3(2, 2, 2);
-    public Image hungerBarFill;
+
     [SerializeField] private HungerSystem _hungerSystem;    // Hunger System
 
     [Header("Player Inventory Reference")]
@@ -110,6 +110,62 @@ public class SellPoint : MonoBehaviour
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
             ToggleShopUI();
+        }
+
+        if (isPlayerInRange)
+        {
+            if (Input.GetKeyDown(KeyCode.B))
+            {
+                BuySeed("Blueberry");
+            }
+            else if (Input.GetKeyDown(KeyCode.L))
+            {
+                BuySeed("Lemon");
+            }
+            else if (Input.GetKeyDown(KeyCode.R))
+            {
+                BuySeed("Apple");
+            }
+            else if (Input.GetKeyDown(KeyCode.N))
+            {
+                BuySeed("Banana");
+            }
+            else if (Input.GetKeyDown(KeyCode.G))
+            {
+                BuySeed("Grape");
+            }
+            else if (Input.GetKeyDown(KeyCode.Y))
+            {
+                BuySeed("Durian");
+            }
+            else if (Input.GetKeyDown(KeyCode.O))
+            {
+                BuySeed("Orange");
+            }
+            else if (Input.GetKeyDown(KeyCode.K))
+            {
+                BuySeed("Kiwi");
+            }
+            else if (Input.GetKeyDown(KeyCode.F))
+            {
+                BuySeed("Starfruit");
+            }
+            else if (Input.GetKeyDown(KeyCode.P))
+            {
+                BuySeed("Pear");
+            }
+            else if (Input.GetKeyDown(KeyCode.G))
+            {
+                BuySeed("Gold");
+            }
+            else if (Input.GetKeyDown(KeyCode.Return))
+            {
+                SellFullyGrownPlants();
+            }
+            else if (Input.GetKeyDown(KeyCode.X))
+            {
+                CloseShopUI();
+            }
         }
     }
 
@@ -149,6 +205,7 @@ public class SellPoint : MonoBehaviour
     private void InitializeButtonListeners()
     {
         // Assign button click listeners for buying seeds
+        /*
         buyBlueberryButton.onClick.AddListener(() => BuySeed("Blueberry"));
         buyLemonButton.onClick.AddListener(() => BuySeed("Lemon"));
         buyAppleButton.onClick.AddListener(() => BuySeed("Apple"));
@@ -160,12 +217,13 @@ public class SellPoint : MonoBehaviour
         buyStarfruitButton.onClick.AddListener(() => BuySeed("Starfruit"));
         buyPearButton.onClick.AddListener(() => BuySeed("Pear"));
         buyGoldButton.onClick.AddListener(() => BuySeed("Gold"));
+        */
 
         // Assign button click listener for selling all plants
-        sellAllButton.onClick.AddListener(SellFullyGrownPlants);
+        //sellAllButton.onClick.AddListener(SellFullyGrownPlants);
 
         // Assign button click listener for closing the shop UI
-        closeButton.onClick.AddListener(CloseShopUI);
+        //closeButton.onClick.AddListener(CloseShopUI);
     }
 
     public void BuySeed(string seedType)
@@ -230,47 +288,36 @@ public class SellPoint : MonoBehaviour
         {
             case "Blueberry":
                 playerInventory.blueberrySeedCount += amount;
-                Debug.Log($"Blueberry Seed Count: {playerInventory.blueberrySeedCount}");
                 break;
             case "Lemon":
                 playerInventory.lemonSeedCount += amount;
-                Debug.Log($"Lemon Seed Count: {playerInventory.lemonSeedCount}");
                 break;
             case "Apple":
                 playerInventory.appleSeedCount += amount;
-                Debug.Log($"Apple Seed Count: {playerInventory.appleSeedCount}");
                 break;
             case "Banana":
                 playerInventory.bananaSeedCount += amount;
-                Debug.Log($"Banana Seed Count: {playerInventory.bananaSeedCount}");
                 break;
             case "Grape":
                 playerInventory.grapeSeedCount += amount;
-                Debug.Log($"Grape Seed Count: {playerInventory.grapeSeedCount}");
                 break;
             case "Durian":
                 playerInventory.durianSeedCount += amount;
-                Debug.Log($"Durian Seed Count: {playerInventory.durianSeedCount}");
                 break;
             case "Orange":
                 playerInventory.orangeSeedCount += amount;
-                Debug.Log($"Orange Seed Count: {playerInventory.orangeSeedCount}");
                 break;
             case "Kiwi":
                 playerInventory.kiwiSeedCount += amount;
-                Debug.Log($"Kiwi Seed Count: {playerInventory.kiwiSeedCount}");
                 break;
             case "Starfruit":
                 playerInventory.starfruitSeedCount += amount;
-                Debug.Log($"Starfruit Seed Count: {playerInventory.starfruitSeedCount}");
                 break;
             case "Pear":
                 playerInventory.pearSeedCount += amount;
-                Debug.Log($"Pear Seed Count: {playerInventory.pearSeedCount}");
                 break;
             case "Gold":
                 playerInventory.goldSeedCount += amount;
-                Debug.Log($"Gold Seed Count: {playerInventory.goldSeedCount}");
                 break;
             default:
                 Debug.LogError("Invalid seed type.");
@@ -314,7 +361,6 @@ public class SellPoint : MonoBehaviour
 
         // Ensure hunger doesn't go below 0
         totalHunger = Mathf.Max(totalHunger, 0);
-        _hungerSystem.Hunger = totalHunger;
 
         // Reset fully grown counts in the player's inventory:
         playerInventory.blueberryFullyGrownCount = 0;
@@ -340,7 +386,7 @@ public class SellPoint : MonoBehaviour
     {
         if (pointsText != null)
         {
-            pointsText.text = $"${totalPoints}"; // Replace "Points" with "$"
+            pointsText.text = $"Points: {totalPoints}";
         }
         else
         {
@@ -352,48 +398,39 @@ public class SellPoint : MonoBehaviour
     {
         if (hungerText != null)
         {
-            hungerText.text = "Hunger: " + totalHunger;
+            hungerText.text = $"Hunger: {totalHunger}";
         }
         else
         {
             Debug.LogError("HungerText UI is not assigned.");
         }
-
-        // Update the hunger bar fill amount
-        if (hungerBarFill != null)
-        {
-            hungerBarFill.fillAmount = (float)totalHunger / 100f; // Normalize hunger to a value between 0 and 1
-        }
-        else
-        {
-            Debug.LogError("HungerBarFill UI is not assigned.");
-        }
     }
 
     private void UpdateSeedPricesUI()
     {
+        Debug.Log("VR");
         if (blueberrySeedPriceText != null)
-            blueberrySeedPriceText.text = $"Blueberry Seed: {blueberrySeedPrice} $";
+            blueberrySeedPriceText.text = $"Blueberry Seed: {blueberrySeedPrice} Points";
         if (lemonSeedPriceText != null)
-            lemonSeedPriceText.text = $"Lemon Seed: {lemonSeedPrice} $";
+            lemonSeedPriceText.text = $"Lemon Seed: {lemonSeedPrice} Points";
         if (appleSeedPriceText != null)
-            appleSeedPriceText.text = $"Apple Seed: {appleSeedPrice} $";
+            appleSeedPriceText.text = $"Apple Seed: {appleSeedPrice} Points";
         if (bananaSeedPriceText != null)
-            bananaSeedPriceText.text = $"Banana Seed: {bananaSeedPrice} $";
+            bananaSeedPriceText.text = $"Banana Seed: {bananaSeedPrice} Points";
         if (grapeSeedPriceText != null)
-            grapeSeedPriceText.text = $"Grape Seed: {grapeSeedPrice} $";
+            grapeSeedPriceText.text = $"Grape Seed: {grapeSeedPrice} Points";
         if (durianSeedPriceText != null)
-            durianSeedPriceText.text = $"Durian Seed: {durianSeedPrice} $";
+            durianSeedPriceText.text = $"Durian Seed: {durianSeedPrice} Points";
         if (orangeSeedPriceText != null)
-            orangeSeedPriceText.text = $"Orange Seed: {orangeSeedPrice} $";
+            orangeSeedPriceText.text = $"Orange Seed: {orangeSeedPrice} Points";
         if (kiwiSeedPriceText != null)
-            kiwiSeedPriceText.text = $"Kiwi Seed: {kiwiSeedPrice} $";
+            kiwiSeedPriceText.text = $"Kiwi Seed: {kiwiSeedPrice} Points";
         if (starfruitSeedPriceText != null)
-            starfruitSeedPriceText.text = $"Starfruit Seed: {starfruitSeedPrice} $";
+            starfruitSeedPriceText.text = $"Starfruit Seed: {starfruitSeedPrice} Points";
         if (pearSeedPriceText != null)
-            pearSeedPriceText.text = $"Pear Seed: {pearSeedPrice} $";
+            pearSeedPriceText.text = $"Pear Seed: {pearSeedPrice} Points";
         if (goldSeedPriceText != null)
-            goldSeedPriceText.text = $"Gold Seed: {goldSeedPrice} $";
+            goldSeedPriceText.text = $"Gold Seed: {goldSeedPrice} Points";
     }
 
     private void CloseShopUI()
