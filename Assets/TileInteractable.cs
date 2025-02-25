@@ -619,7 +619,7 @@ public class TileInteractable : MonoBehaviour
         if (kiwiSeedCountText != null)
         {
             kiwiSeedCountText.text = "Kiwi Seeds: " + kiwiSeedCount;
-        }
+        }   
 
         if (starfruitSeedCountText != null)
         {
