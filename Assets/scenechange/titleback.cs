@@ -11,5 +11,12 @@ public class backtitle : MonoBehaviour
         SceneManager.LoadScene("title");
 
     }
+    private void Update()
+    {
+        if (Input.GetKey(KeyCode.Return))
+        {
+            SceneManager.LoadScene("title");
+        }
+    }
 }
 
