@@ -371,6 +371,46 @@ public class TileInteractable : MonoBehaviour
             if (seedStage != null)
                 seedStage.SetActive(true);
 
+            switch (selectedSeed)
+            {
+                case "Blueberry":
+                    currentFullStage = Instantiate(blueberryFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Lemon":
+                    currentFullStage = Instantiate(lemonFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Apple":
+                    currentFullStage = Instantiate(appleFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Banana":
+                    currentFullStage = Instantiate(bananaFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Grape":
+                    currentFullStage = Instantiate(grapeFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Durian":
+                    currentFullStage = Instantiate(durianFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Orange":
+                    currentFullStage = Instantiate(orangeFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Kiwi":
+                    currentFullStage = Instantiate(kiwiFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Starfruit":
+                    currentFullStage = Instantiate(starfruitFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Pear":
+                    currentFullStage = Instantiate(pearFullStage, transform.position, Quaternion.identity);
+                    break;
+                case "Gold":
+                    currentFullStage = Instantiate(goldFullStage, transform.position, Quaternion.identity);
+                    break;
+                default:
+                    Debug.LogError("Not exist fruit is selected");
+                    break;
+            }
+
             // Update UI seed counts
             UpdateSeedCountUI();
         }
@@ -474,6 +514,7 @@ public class TileInteractable : MonoBehaviour
         SetActiveStage(seedStage, false);
         SetActiveStage(saplingStage, false);
         SetActiveStage(currentFullStage, false);
+        Destroy(currentFullStage);
 
         selectedSeed = "";
 
