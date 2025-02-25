@@ -137,7 +137,7 @@ public class TileInteractable : MonoBehaviour
         inventoryPanel.SetActive(false);
 
         // Add button listeners
-        blueberrySeedButton.onClick.AddListener(() => SelectSeed("Blueberry")); 
+        blueberrySeedButton.onClick.AddListener(() => SelectSeed("Blueberry"));
         lemonSeedButton.onClick.AddListener(() => SelectSeed("Lemon"));
         appleSeedButton.onClick.AddListener(() => SelectSeed("Apple"));
         bananaSeedButton.onClick.AddListener(() => SelectSeed("Banana"));
@@ -153,7 +153,7 @@ public class TileInteractable : MonoBehaviour
         // Ensure all models are inactive at the start, except the seed model
         if (seedStage != null) seedStage.SetActive(false);
         if (saplingStage != null) saplingStage.SetActive(false);
-        if (blueberryFullStage != null) blueberryFullStage.SetActive(false); 
+        if (blueberryFullStage != null) blueberryFullStage.SetActive(false);
         if (lemonFullStage != null) lemonFullStage.SetActive(false);
         if (appleFullStage != null) appleFullStage.SetActive(false);
         if (bananaFullStage != null) bananaFullStage.SetActive(false);
@@ -185,7 +185,7 @@ public class TileInteractable : MonoBehaviour
             if (!isPlanted)
             {
                 currentMessage = interactionMessage; // "Press 'E' to plant seed"
-                if (interactAction.action.WasPerformedThisFrame())
+                if (interactAction.action.WasPerformedThisFrame() || Input.GetKey(KeyCode.E))
                 {
                     OpenSeedSelectionUI();
                 }
@@ -193,7 +193,7 @@ public class TileInteractable : MonoBehaviour
             else if (isHarvestable)
             {
                 currentMessage = harvestMessage; // "Press 'E' to harvest the plant"
-                if (interactAction.action.WasPerformedThisFrame())
+                if (interactAction.action.WasPerformedThisFrame() || Input.GetKey(KeyCode.E))
                 {
                     Harvest();
                 }
@@ -241,7 +241,7 @@ public class TileInteractable : MonoBehaviour
             Cursor.visible = true;
 
             // Disable buttons if out of seeds
-            blueberrySeedButton.interactable = blueberrySeedCount > 0; 
+            blueberrySeedButton.interactable = blueberrySeedCount > 0;
             lemonSeedButton.interactable = lemonSeedCount > 0;
             appleSeedButton.interactable = appleSeedCount > 0;
             bananaSeedButton.interactable = bananaSeedCount > 0;
@@ -257,14 +257,14 @@ public class TileInteractable : MonoBehaviour
 
     void SelectSeed(string seed)
     {
-        if (seed == "Blueberry" && blueberrySeedCount > 0) 
+        if (seed == "Blueberry" && blueberrySeedCount > 0)
         {
             selectedSeed = seed;
-            growthDuration = blueberryGrowthDuration; 
-            currentFullStage = blueberryFullStage; 
+            growthDuration = blueberryGrowthDuration;
+            currentFullStage = blueberryFullStage;
 
             // Reduce seed count
-            blueberrySeedCount--; 
+            blueberrySeedCount--;
         }
         else if (seed == "Lemon" && lemonSeedCount > 0)
         {
@@ -466,9 +466,9 @@ public class TileInteractable : MonoBehaviour
         Debug.Log("Harvested " + selectedSeed + "!");
 
         // Increment the fully grown count for the respective seed type
-        if (selectedSeed == "Blueberry") 
+        if (selectedSeed == "Blueberry")
         {
-            blueberryFullyGrownCount++; 
+            blueberryFullyGrownCount++;
         }
         else if (selectedSeed == "Lemon")
         {
@@ -534,9 +534,9 @@ public class TileInteractable : MonoBehaviour
     {
         // Update seed counts for all fruit types
 
-        if (blueberrySeedCountText != null) 
+        if (blueberrySeedCountText != null)
         {
-            blueberrySeedCountText.text = "Blueberry Seeds: " + blueberrySeedCount; 
+            blueberrySeedCountText.text = "Blueberry Seeds: " + blueberrySeedCount;
         }
 
         if (lemonSeedCountText != null)
@@ -594,7 +594,7 @@ public class TileInteractable : MonoBehaviour
 
         if (inventoryBlueberryCount != null)
         {
-            inventoryBlueberryCount.text = $"Blueberry Seeds: {blueberrySeedCount}\nFully Grown: {blueberryFullyGrownCount}"; 
+            inventoryBlueberryCount.text = $"Blueberry Seeds: {blueberrySeedCount}\nFully Grown: {blueberryFullyGrownCount}";
         }
 
         if (inventoryLemonCount != null)
@@ -658,9 +658,9 @@ public class TileInteractable : MonoBehaviour
     {
         if (!string.IsNullOrEmpty(currentMessage) && isPlayerInRange)
         {
-            GUI.skin.label.fontSize = 100;
+            GUI.skin.label.fontSize = 30;
             GUI.skin.label.normal.textColor = Color.black;
-            GUI.Label(new Rect(10, 10, 2000, 300), currentMessage);
+            GUI.Label(new Rect(10, 10, 300, 40), currentMessage);
         }
     }
 }
