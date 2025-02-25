@@ -1,6 +1,6 @@
 using UnityEngine;
-using UnityEngine.UI; // Required for UI components
 using TMPro;
+using UnityEngine.UI;
 
 public class SellPoint : MonoBehaviour
 {
@@ -30,33 +30,78 @@ public class SellPoint : MonoBehaviour
     public int pearHungerValue = 10;
     public int goldHungerValue = 15;
 
+    [Header("Seed Prices")]
+    public int blueberrySeedPrice = 5;
+    public int lemonSeedPrice = 10;
+    public int appleSeedPrice = 15;
+    public int bananaSeedPrice = 20;
+    public int grapeSeedPrice = 25;
+    public int durianSeedPrice = 30;
+    public int orangeSeedPrice = 35;
+    public int kiwiSeedPrice = 40;
+    public int starfruitSeedPrice = 45;
+    public int pearSeedPrice = 50;
+    public int goldSeedPrice = 100;
+
     [Header("UI Elements")]
     public TMP_Text pointsText;
     public TMP_Text hungerText;
-    public Image hungerBarFill; // Reference to the hunger bar fill image
-    [SerializeField] private HungerSystem _hungerSystem;    // Hunger System
+    public TMP_Text blueberrySeedPriceText;
+    public TMP_Text lemonSeedPriceText;
+    public TMP_Text appleSeedPriceText;
+    public TMP_Text bananaSeedPriceText;
+    public TMP_Text grapeSeedPriceText;
+    public TMP_Text durianSeedPriceText;
+    public TMP_Text orangeSeedPriceText;
+    public TMP_Text kiwiSeedPriceText;
+    public TMP_Text starfruitSeedPriceText;
+    public TMP_Text pearSeedPriceText;
+    public TMP_Text goldSeedPriceText;
 
-    public int totalPoints = 0;
-    public int totalHunger = 100;
+    [Header("Shop UI")]
+    public GameObject shopPanel; // Reference to the shop UI panel
+    public Button buyBlueberryButton;
+    public Button buyLemonButton;
+    public Button buyAppleButton;
+    public Button buyBananaButton;
+    public Button buyGrapeButton;
+    public Button buyDurianButton;
+    public Button buyOrangeButton;
+    public Button buyKiwiButton;
+    public Button buyStarfruitButton;
+    public Button buyPearButton;
+    public Button buyGoldButton;
+    public Button sellAllButton;
+    public Button closeButton; // Close button for the shop UI
+
+    [Header("Interaction Settings")]
+    public Vector3 interactionBoxSize = new Vector3(2, 2, 2);
+
+    [SerializeField] private HungerSystem _hungerSystem;    // Hunger System
 
     [Header("Player Inventory Reference")]
     public TileInteractable playerInventory;
 
+    public int totalPoints = 0; // Points act as money
+    public int totalHunger = 100;
+
     private bool isPlayerInRange = false;
-    private string interactionMessage = "Press 'E' to sell your fully grown plants and reduce hunger!";
+    private string interactionMessage = "Press 'E' to interact";
 
     void Start()
     {
+        // Hide the shop UI when the game starts
+        shopPanel.SetActive(false);
+
         UpdatePointsUI();
         UpdateHungerUI();
+        UpdateSeedPricesUI();
 
-        // Hunger
         _hungerSystem.Hunger = totalHunger;
-    }
 
-    [Header("Interaction Settings")]
-    public Vector3 interactionBoxSize = new Vector3(3f, 3f, 3f); // Adjust size as needed
-    public float interactionRange = 3f;
+        // Initialize button listeners
+        InitializeButtonListeners();
+    }
 
     void Update()
     {
@@ -64,7 +109,7 @@ public class SellPoint : MonoBehaviour
 
         if (isPlayerInRange && Input.GetKeyDown(KeyCode.E))
         {
-            SellFullyGrownPlants();
+            ToggleShopUI();
         }
     }
 
@@ -83,26 +128,142 @@ public class SellPoint : MonoBehaviour
         }
     }
 
-    // Draw interaction box in the Scene view
-    void OnDrawGizmosSelected()
+    public void ToggleShopUI()
     {
-        Gizmos.color = Color.yellow;
-        Gizmos.DrawWireCube(transform.position, interactionBoxSize);
-    }
+        shopPanel.SetActive(!shopPanel.activeSelf); // Toggle shop UI visibility
 
-    private void OnTriggerEnter(Collider other)
-    {
-        if (other.CompareTag("Player"))
+        // Enable/disable mouse cursor and lock state based on UI visibility
+        if (shopPanel.activeSelf)
         {
-            isPlayerInRange = true;
+            Cursor.lockState = CursorLockMode.None; // Unlock cursor
+            Cursor.visible = true; // Show cursor
+            UpdateSeedPricesUI(); // Update UI when shop is opened
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked; // Lock cursor
+            Cursor.visible = false; // Hide cursor
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void InitializeButtonListeners()
     {
-        if (other.CompareTag("Player"))
+        // Assign button click listeners for buying seeds
+        buyBlueberryButton.onClick.AddListener(() => BuySeed("Blueberry"));
+        buyLemonButton.onClick.AddListener(() => BuySeed("Lemon"));
+        buyAppleButton.onClick.AddListener(() => BuySeed("Apple"));
+        buyBananaButton.onClick.AddListener(() => BuySeed("Banana"));
+        buyGrapeButton.onClick.AddListener(() => BuySeed("Grape"));
+        buyDurianButton.onClick.AddListener(() => BuySeed("Durian"));
+        buyOrangeButton.onClick.AddListener(() => BuySeed("Orange"));
+        buyKiwiButton.onClick.AddListener(() => BuySeed("Kiwi"));
+        buyStarfruitButton.onClick.AddListener(() => BuySeed("Starfruit"));
+        buyPearButton.onClick.AddListener(() => BuySeed("Pear"));
+        buyGoldButton.onClick.AddListener(() => BuySeed("Gold"));
+
+        // Assign button click listener for selling all plants
+        sellAllButton.onClick.AddListener(SellFullyGrownPlants);
+
+        // Assign button click listener for closing the shop UI
+        closeButton.onClick.AddListener(CloseShopUI);
+    }
+
+    public void BuySeed(string seedType)
+    {
+        int price = 0;
+        switch (seedType)
         {
-            isPlayerInRange = false;
+            case "Blueberry":
+                price = blueberrySeedPrice;
+                break;
+            case "Lemon":
+                price = lemonSeedPrice;
+                break;
+            case "Apple":
+                price = appleSeedPrice;
+                break;
+            case "Banana":
+                price = bananaSeedPrice;
+                break;
+            case "Grape":
+                price = grapeSeedPrice;
+                break;
+            case "Durian":
+                price = durianSeedPrice;
+                break;
+            case "Orange":
+                price = orangeSeedPrice;
+                break;
+            case "Kiwi":
+                price = kiwiSeedPrice;
+                break;
+            case "Starfruit":
+                price = starfruitSeedPrice;
+                break;
+            case "Pear":
+                price = pearSeedPrice;
+                break;
+            case "Gold":
+                price = goldSeedPrice;
+                break;
+            default:
+                Debug.LogError("Invalid seed type.");
+                return;
+        }
+
+        if (totalPoints >= price)
+        {
+            totalPoints -= price; // Deduct points (money)
+            UpdateSeedCount(seedType, 1);
+            UpdatePointsUI();
+            Debug.Log($"Purchased 1 {seedType} seed for {price} points.");
+        }
+        else
+        {
+            Debug.Log("Not enough points to buy this seed.");
+        }
+    }
+
+    private void UpdateSeedCount(string seedType, int amount)
+    {
+        switch (seedType)
+        {
+            case "Blueberry":
+                playerInventory.blueberrySeedCount += amount;
+                break;
+            case "Lemon":
+                playerInventory.lemonSeedCount += amount;
+                break;
+            case "Apple":
+                playerInventory.appleSeedCount += amount;
+                break;
+            case "Banana":
+                playerInventory.bananaSeedCount += amount;
+                break;
+            case "Grape":
+                playerInventory.grapeSeedCount += amount;
+                break;
+            case "Durian":
+                playerInventory.durianSeedCount += amount;
+                break;
+            case "Orange":
+                playerInventory.orangeSeedCount += amount;
+                break;
+            case "Kiwi":
+                playerInventory.kiwiSeedCount += amount;
+                break;
+            case "Starfruit":
+                playerInventory.starfruitSeedCount += amount;
+                break;
+            case "Pear":
+                playerInventory.pearSeedCount += amount;
+                break;
+            case "Gold":
+                playerInventory.goldSeedCount += amount;
+                break;
+            default:
+                Debug.LogError("Invalid seed type.");
+                break;
         }
     }
 
@@ -143,9 +304,6 @@ public class SellPoint : MonoBehaviour
         // Ensure hunger doesn't go below 0
         totalHunger = Mathf.Max(totalHunger, 0);
 
-        // Update Hunger Gauge UI
-        _hungerSystem.Hunger = totalHunger;
-
         // Reset fully grown counts in the player's inventory:
         playerInventory.blueberryFullyGrownCount = 0;
         playerInventory.lemonFullyGrownCount = 0;
@@ -163,14 +321,14 @@ public class SellPoint : MonoBehaviour
         UpdateHungerUI();
         playerInventory.UpdateSeedCountUI(); // Update inventory UI
 
-        Debug.Log("Plants sold and hunger reduced!"); // Simplified log message
+        Debug.Log("Plants sold and hunger reduced!");
     }
 
     private void UpdatePointsUI()
     {
         if (pointsText != null)
         {
-            pointsText.text = totalPoints.ToString();
+            pointsText.text = $"Points: {totalPoints}";
         }
         else
         {
@@ -182,22 +340,45 @@ public class SellPoint : MonoBehaviour
     {
         if (hungerText != null)
         {
-            hungerText.text = "Hunger: " + totalHunger;
+            hungerText.text = $"Hunger: {totalHunger}";
         }
         else
         {
             Debug.LogError("HungerText UI is not assigned.");
         }
+    }
 
-        // Update the hunger bar fill amount
-        if (hungerBarFill != null)
-        {
-            hungerBarFill.fillAmount = (float)totalHunger / 100f; // Normalize hunger to a value between 0 and 1
-        }
-        else
-        {
-            Debug.LogError("HungerBarFill UI is not assigned.");
-        }
+    private void UpdateSeedPricesUI()
+    {
+        if (blueberrySeedPriceText != null)
+            blueberrySeedPriceText.text = $"Blueberry Seed: {blueberrySeedPrice} Points";
+        if (lemonSeedPriceText != null)
+            lemonSeedPriceText.text = $"Lemon Seed: {lemonSeedPrice} Points";
+        if (appleSeedPriceText != null)
+            appleSeedPriceText.text = $"Apple Seed: {appleSeedPrice} Points";
+        if (bananaSeedPriceText != null)
+            bananaSeedPriceText.text = $"Banana Seed: {bananaSeedPrice} Points";
+        if (grapeSeedPriceText != null)
+            grapeSeedPriceText.text = $"Grape Seed: {grapeSeedPrice} Points";
+        if (durianSeedPriceText != null)
+            durianSeedPriceText.text = $"Durian Seed: {durianSeedPrice} Points";
+        if (orangeSeedPriceText != null)
+            orangeSeedPriceText.text = $"Orange Seed: {orangeSeedPrice} Points";
+        if (kiwiSeedPriceText != null)
+            kiwiSeedPriceText.text = $"Kiwi Seed: {kiwiSeedPrice} Points";
+        if (starfruitSeedPriceText != null)
+            starfruitSeedPriceText.text = $"Starfruit Seed: {starfruitSeedPrice} Points";
+        if (pearSeedPriceText != null)
+            pearSeedPriceText.text = $"Pear Seed: {pearSeedPrice} Points";
+        if (goldSeedPriceText != null)
+            goldSeedPriceText.text = $"Gold Seed: {goldSeedPrice} Points";
+    }
+
+    private void CloseShopUI()
+    {
+        shopPanel.SetActive(false); // Hide the shop UI
+        Cursor.lockState = CursorLockMode.Locked; // Lock cursor
+        Cursor.visible = false; // Hide cursor
     }
 
     void OnGUI()
