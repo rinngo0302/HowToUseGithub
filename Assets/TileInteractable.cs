@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.InputSystem;
 
 public class TileInteractable : MonoBehaviour
 {
@@ -10,7 +11,7 @@ public class TileInteractable : MonoBehaviour
 
     // UI References
     public GameObject seedSelectionUI;
-    public Button blueberrySeedButton; 
+    public Button blueberrySeedButton;
     public Button lemonSeedButton;
     public Button appleSeedButton;
     public Button bananaSeedButton;
@@ -23,7 +24,7 @@ public class TileInteractable : MonoBehaviour
     public Button goldSeedButton;
     public Button closeUIButton;
 
-    public TMP_Text blueberrySeedCountText; 
+    public TMP_Text blueberrySeedCountText;
     public TMP_Text lemonSeedCountText;
     public TMP_Text appleSeedCountText;
     public TMP_Text bananaSeedCountText;
@@ -37,7 +38,7 @@ public class TileInteractable : MonoBehaviour
 
     // Inventory UI
     public GameObject inventoryPanel;       // Inventory panel UI
-    public TMP_Text inventoryBlueberryCount; 
+    public TMP_Text inventoryBlueberryCount;
     public TMP_Text inventoryLemonCount;
     public TMP_Text inventoryAppleCount;
     public TMP_Text inventoryBananaCount;
@@ -50,7 +51,7 @@ public class TileInteractable : MonoBehaviour
     public TMP_Text inventoryGoldCount;
 
     // Inventory
-    public int blueberrySeedCount = 0; 
+    public int blueberrySeedCount = 0;
     public int lemonSeedCount = 0;
     public int appleSeedCount = 0;
     public int bananaSeedCount = 0;
@@ -62,7 +63,7 @@ public class TileInteractable : MonoBehaviour
     public int pearSeedCount = 0;
     public int goldSeedCount = 0;
 
-    public int blueberryFullyGrownCount = 0; 
+    public int blueberryFullyGrownCount = 0;
     public int lemonFullyGrownCount = 0;
     public int appleFullyGrownCount = 0;
     public int bananaFullyGrownCount = 0;
@@ -85,7 +86,7 @@ public class TileInteractable : MonoBehaviour
     [Header("Plant Growth Settings")]
     public GameObject seedStage;      // The seed stage model
     public GameObject saplingStage;   // The sapling stage model
-    public GameObject blueberryFullStage; 
+    public GameObject blueberryFullStage;
     public GameObject lemonFullStage;
     public GameObject appleFullStage;
     public GameObject bananaFullStage;
@@ -107,7 +108,7 @@ public class TileInteractable : MonoBehaviour
 
     // Define growth durations for different seeds
     [Header("Seed Growth Durations")]
-    public float blueberryGrowthDuration = 5f;  
+    public float blueberryGrowthDuration = 5f;
     public float lemonGrowthDuration = 10f;
     public float appleGrowthDuration = 12f;
     public float bananaGrowthDuration = 14f;
@@ -122,6 +123,8 @@ public class TileInteractable : MonoBehaviour
     private float growthDuration;  // This will be set based on the selected seed
 
     private string currentMessage = ""; // Current message displayed to the player
+
+    [SerializeField] private InputActionReference interactAction; // Use reference
 
     void Start()
     {
@@ -182,7 +185,7 @@ public class TileInteractable : MonoBehaviour
             if (!isPlanted)
             {
                 currentMessage = interactionMessage; // "Press 'E' to plant seed"
-                if (Input.GetKeyDown(KeyCode.E))
+                if (interactAction.action.WasPerformedThisFrame())
                 {
                     OpenSeedSelectionUI();
                 }
@@ -190,7 +193,7 @@ public class TileInteractable : MonoBehaviour
             else if (isHarvestable)
             {
                 currentMessage = harvestMessage; // "Press 'E' to harvest the plant"
-                if (Input.GetKeyDown(KeyCode.E))
+                if (interactAction.action.WasPerformedThisFrame())
                 {
                     Harvest();
                 }
