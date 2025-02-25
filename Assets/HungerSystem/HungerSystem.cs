@@ -101,4 +101,15 @@ public class HungerSystem : MonoBehaviour
             CheckIsOverMax();
         }
     }
+
+    /// <summary>
+    /// Max Hunger(Read)
+    /// </summary>
+    public int MaxHunger
+    {
+        get
+        {
+            return _maxHunger;
+        }
+    }
 }

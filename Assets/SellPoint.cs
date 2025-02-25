@@ -140,11 +140,13 @@ public class SellPoint : MonoBehaviour
         totalHunger -= playerInventory.pearFullyGrownCount * pearHungerValue;
         totalHunger -= playerInventory.goldFullyGrownCount * goldHungerValue;
 
+
         // Ensure hunger doesn't go below 0
         totalHunger = Mathf.Max(totalHunger, 0);
 
         // Update Hunger Gauge UI
-        _hungerSystem.Hunger = totalHunger;
+        //_hungerSystem.Hunger = totalHunger;
+        _hungerSystem.MinusHunger(_hungerSystem.MaxHunger - totalHunger);
 
         // Reset fully grown counts in the player's inventory:
         playerInventory.blueberryFullyGrownCount = 0;
