@@ -48,6 +48,9 @@ public class SellPoint : MonoBehaviour
     {
         UpdatePointsUI();
         UpdateHungerUI();
+
+        // Hunger
+        _hungerSystem.Hunger = totalHunger;
     }
 
     [Header("Interaction Settings")]
