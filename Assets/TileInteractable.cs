@@ -228,6 +228,7 @@ public class TileInteractable : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.I))
         {
             ToggleInventory();
+            SE.Instance.PlayOneShot(3);
         }
     }
 
@@ -413,9 +414,11 @@ public class TileInteractable : MonoBehaviour
                     Debug.LogError("Not exist fruit is selected");
                     break;
             }
+            SE.Instance.PlayOneShot(1);
 
             // Update UI seed counts
             UpdateSeedCountUI();
+
         }
     }
 
@@ -523,6 +526,8 @@ public class TileInteractable : MonoBehaviour
 
         // Update the UI with the latest seed and fully grown counts
         UpdateSeedCountUI();
+
+        SE.Instance.PlayOneShot(2);
     }
 
     public void UpdateSeedCountUI()
