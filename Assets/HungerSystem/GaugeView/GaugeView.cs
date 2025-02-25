@@ -49,7 +49,7 @@ public class GaugeView : MonoBehaviour
 
     private void UpdateGauge()
     {
-        float width = _widthMask * (1 - _currentNumber / _maxNumber);
+        float width = _widthMask * (_currentNumber / _maxNumber);
         width = (width >= _widthMask) ? _widthMask : width;
 
         Vector4 padding = _mask.padding;
