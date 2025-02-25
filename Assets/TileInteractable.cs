@@ -427,40 +427,42 @@ public class TileInteractable : MonoBehaviour
             if (seedStage != null)
                 seedStage.SetActive(true);
 
+            Vector3 spawn = transform.position;
+            spawn.y += 0.3f;
             switch (selectedSeed)
             {
                 case "Blueberry":
-                    currentFullStage = Instantiate(blueberryFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(blueberryFullStage, spawn, Quaternion.identity);
                     break;
                 case "Lemon":
-                    currentFullStage = Instantiate(lemonFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(lemonFullStage, spawn, Quaternion.identity);
                     break;
                 case "Apple":
-                    currentFullStage = Instantiate(appleFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(appleFullStage, spawn, Quaternion.identity);
                     break;
                 case "Banana":
-                    currentFullStage = Instantiate(bananaFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(bananaFullStage, spawn, Quaternion.identity);
                     break;
                 case "Grape":
-                    currentFullStage = Instantiate(grapeFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(grapeFullStage, spawn, Quaternion.identity);
                     break;
                 case "Durian":
-                    currentFullStage = Instantiate(durianFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(durianFullStage, spawn, Quaternion.identity);
                     break;
                 case "Orange":
-                    currentFullStage = Instantiate(orangeFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(orangeFullStage, spawn, Quaternion.identity);
                     break;
                 case "Kiwi":
-                    currentFullStage = Instantiate(kiwiFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(kiwiFullStage, spawn, Quaternion.identity);
                     break;
                 case "Starfruit":
-                    currentFullStage = Instantiate(starfruitFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(starfruitFullStage, spawn, Quaternion.identity);
                     break;
                 case "Pear":
-                    currentFullStage = Instantiate(pearFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(pearFullStage, spawn, Quaternion.identity);
                     break;
                 case "Gold":
-                    currentFullStage = Instantiate(goldFullStage, transform.position, Quaternion.identity);
+                    currentFullStage = Instantiate(goldFullStage, spawn, Quaternion.identity);
                     break;
                 default:
                     Debug.LogError("Not exist fruit is selected");
