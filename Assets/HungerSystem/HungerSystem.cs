@@ -35,7 +35,7 @@ public class HungerSystem : MonoBehaviour
         // update Gauge number
         _hungerGauge.SetGaugeNumber((float)_hunger);
 
-        //Debug.Log($"_hunger: {(float)_hunger}, _maxHunger: {_maxHunger}");
+        Debug.Log($"_hunger: {(float)_hunger}, _maxHunger: {_maxHunger}");
     }
 
     /// <summary>
@@ -78,6 +78,15 @@ public class HungerSystem : MonoBehaviour
     {
         _hunger = (_hunger > _maxHunger) ? _maxHunger : _hunger;
     }
+
+    public int MaxHunger
+    {
+        get
+        {
+            return _maxHunger;
+        }
+    }
+
 
     /// <summary>
     /// Hunger(Read/Write)
